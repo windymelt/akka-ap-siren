@@ -105,7 +105,8 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
     } ~ pathPrefix(".well-known") {
       path("webfinger") {
         // TODO: accept only "@siren"
-        complete("""{
+        parameter("resource".as[String]) { r =>
+          complete("""{
 	"subject": "acct:siren@siren.capslock.dev",
 
 	"links": [
@@ -117,6 +118,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 	]
 }
 """)
+        }
       }
     }
   // #all-routes
