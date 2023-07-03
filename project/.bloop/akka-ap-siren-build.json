@@ -1,0 +1,2430 @@
+{
+    "version": "1.4.0",
+    "project": {
+        "name": "akka-ap-siren-build",
+        "directory": "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project",
+        "workspaceDir": "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project",
+        "sources": [
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/src/main/scala",
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/src/main/scala-2.12",
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/src/main/scala-2",
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/src/main/java",
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/src/main/scala-sbt-1.0",
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/target/scala-2.12/sbt-1.0/src_managed/main"
+        ],
+        "dependencies": [
+            
+        ],
+        "classpath": [
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/sbt/1.9.1/sbt-1.9.1.jar",
+            "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-library.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/ch/epfl/scala/sbt-bloop_2.12_1.0/1.5.4/sbt-bloop-1.5.4.jar",
+            "/home/windymelt/.cache/coursier/v1/https/repo.scala-sbt.org/scalasbt/sbt-plugin-releases/io.spray/sbt-revolver/scala_2.12/sbt_1.0/0.9.1/jars/sbt-revolver.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/main_2.12/1.9.1/main_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/io_2.12/1.9.1/io_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/ch/epfl/scala/bloop-config_2.12/1.5.4/bloop-config_2.12-1.5.4.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/logic_2.12/1.9.1/logic_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/actions_2.12/1.9.1/actions_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/main-settings_2.12/1.9.1/main-settings_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/run_2.12/1.9.1/run_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/command_2.12/1.9.1/command_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/collections_2.12/1.9.1/collections_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/scripted-plugin_2.12/1.9.1/scripted-plugin_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-lm-integration_2.12/1.9.1/zinc-lm-integration_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-logging_2.12/1.9.1/util-logging_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-xml_2.12/2.1.0/scala-xml_2.12-2.1.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/launcher-interface/1.4.2/launcher-interface-1.4.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/github/ben-manes/caffeine/caffeine/2.8.5/caffeine-2.8.5.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/io/get-coursier/lm-coursier-shaded_2.12/2.1.0/lm-coursier-shaded_2.12-2.1.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-slf4j-impl/2.17.1/log4j-slf4j-impl-2.17.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/librarymanagement-core_2.12/1.9.1/librarymanagement-core_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/librarymanagement-ivy_2.12/1.9.1/librarymanagement-ivy_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/compiler-interface/1.9.2/compiler-interface-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-compile_2.12/1.9.2/zinc-compile_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/swoval/file-tree-views/2.1.10/file-tree-views-2.1.10.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/java/dev/jna/jna-platform/5.13.0/jna-platform-5.13.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/github/plokhotnyuk/jsoniter-scala/jsoniter-scala-core_2.12/2.4.0/jsoniter-scala-core_2.12-2.4.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-relation_2.12/1.9.1/util-relation_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/completion_2.12/1.9.1/completion_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/task-system_2.12/1.9.1/task-system_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/tasks_2.12/1.9.1/tasks_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/testing_2.12/1.9.1/testing_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-tracking_2.12/1.9.1/util-tracking_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-scalajson_2.12/0.9.1/sjson-new-scalajson_2.12-0.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal/3.19.0/jline-terminal-3.19.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-classpath_2.12/1.9.2/zinc-classpath_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-apiinfo_2.12/1.9.2/zinc-apiinfo_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc_2.12/1.9.2/zinc_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/core-macros_2.12/1.9.1/core-macros_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-cache_2.12/1.9.1/util-cache_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-control_2.12/1.9.1/util-control_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/protocol_2.12/1.9.1/protocol_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-core_2.12/0.9.1/sjson-new-core_2.12-0.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/template-resolver/0.1/template-resolver-0.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-position_2.12/1.9.1/util-position_2.12-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-compile-core_2.12/1.9.2/zinc-compile-core_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-interface/1.9.1/util-interface-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/jline/jline/2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493/jline-2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal-jna/3.19.0/jline-terminal-jna-3.19.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal-jansi/3.19.0/jline-terminal-jansi-3.19.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/lmax/disruptor/3.4.2/disruptor-3.4.2.jar",
+            "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-reflect.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/checkerframework/checker-qual/3.4.1/checker-qual-3.4.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-collection-compat_2.12/2.9.0/scala-collection-compat_2.12-2.9.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar",
+            "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-compiler.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/gigahorse-apache-http_2.12/0.7.0/gigahorse-apache-http_2.12-0.7.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/ivy/ivy/2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e/ivy-2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-reader/3.19.0/jline-reader-3.19.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-builtins/3.19.0/jline-builtins-3.19.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/test-agent/1.9.1/test-agent-1.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-jawn-parser_2.12/0.9.1/shaded-jawn-parser_2.12-0.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-scalajson_2.12/1.0.0-M4/shaded-scalajson_2.12-1.0.0-M4.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/compiler-bridge_2.12/1.9.2/compiler-bridge_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-classfile_2.12/1.9.2/zinc-classfile_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-core_2.12/1.9.2/zinc-core_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-persist_2.12/1.9.2/zinc-persist_2.12-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-murmurhash_2.12/0.9.1/sjson-new-murmurhash_2.12-0.9.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/ipcsocket/ipcsocket/1.6.2/ipcsocket-1.6.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.1.2/scala-parser-combinators_2.12-1.1.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/openhft/zero-allocation-hashing/0.10.1/zero-allocation-hashing-0.10.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/fusesource/jansi/jansi/2.1.0/jansi-2.1.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/gigahorse-core_2.12/0.7.0/gigahorse-core_2.12-0.7.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-apache-httpasyncclient/0.7.0/shaded-apache-httpasyncclient-0.7.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-style/3.19.0/jline-style-3.19.0.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-persist-core-assembly/1.9.2/zinc-persist-core-assembly-1.9.2.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/sbinary_2.12/0.5.1/sbinary_2.12-0.5.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/typesafe/ssl-config-core_2.12/0.6.1/ssl-config-core_2.12-0.6.1.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar",
+            "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/typesafe/config/1.4.2/config-1.4.2.jar"
+        ],
+        "out": "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/.bloop/akka-ap-siren-build",
+        "classesDir": "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/.bloop/akka-ap-siren-build/scala-2.12/sbt-1.0/classes",
+        "resources": [
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/src/main/resources",
+            "/home/windymelt/src/github.com/windymelt/akka-ap-siren/project/target/scala-2.12/sbt-1.0/resource_managed/main"
+        ],
+        "scala": {
+            "organization": "org.scala-lang",
+            "name": "scala-compiler",
+            "version": "2.12.18",
+            "options": [
+                "-deprecation",
+                "-Wconf:cat=unused-nowarn:s",
+                "-Wconf:cat=unused-nowarn:s",
+                "-Xsource:3"
+            ],
+            "jars": [
+                "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-library.jar",
+                "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-compiler.jar",
+                "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-reflect.jar",
+                "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-xml_2.12-2.1.0.jar"
+            ],
+            "setup": {
+                "order": "mixed",
+                "addLibraryToBootClasspath": true,
+                "addCompilerToClasspath": false,
+                "addExtraJarsToClasspath": false,
+                "manageBootClasspath": true,
+                "filterLibraryFromClasspath": true
+            }
+        },
+        "java": {
+            "options": [
+                
+            ]
+        },
+        "sbt": {
+            "sbtVersion": "1.9.1",
+            "autoImports": [
+                "import _root_.scala.xml.{TopScope=>$scope}",
+                "import _root_.sbt._",
+                "import _root_.sbt.Keys._",
+                "import _root_.sbt.nio.Keys._",
+                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.sbt.plugins.JUnitXmlReportPlugin.autoImport._, _root_.sbt.plugins.MiniDependencyTreePlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._, _root_.spray.revolver.RevolverPlugin.autoImport._",
+                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.SemanticdbPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.sbt.plugins.MiniDependencyTreePlugin, _root_.bloop.integrations.sbt.BloopPlugin, _root_.spray.revolver.RevolverPlugin"
+            ]
+        },
+        "test": {
+            "frameworks": [
+                {
+                    "names": [
+                        "org.scalacheck.ScalaCheckFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "org.specs2.runner.Specs2Framework",
+                        "org.specs2.runner.SpecsFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "org.specs.runner.SpecsFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "org.scalatest.tools.Framework",
+                        "org.scalatest.tools.ScalaTestFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "com.novocode.junit.JUnitFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "munit.Framework"
+                    ]
+                },
+                {
+                    "names": [
+                        "zio.test.sbt.ZTestFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "weaver.framework.CatsEffect"
+                    ]
+                },
+                {
+                    "names": [
+                        "hedgehog.sbt.Framework"
+                    ]
+                }
+            ],
+            "options": {
+                "excludes": [
+                    
+                ],
+                "arguments": [
+                    
+                ]
+            }
+        },
+        "platform": {
+            "name": "jvm",
+            "config": {
+                "home": "/usr/lib64/jvm/java-11-openjdk-11",
+                "options": [
+                    "-Duser.dir=/home/windymelt/src/github.com/windymelt/akka-ap-siren/project"
+                ]
+            },
+            "mainClass": [
+                
+            ]
+        },
+        "resolution": {
+            "modules": [
+                {
+                    "organization": "ch.epfl.scala",
+                    "name": "sbt-bloop",
+                    "version": "1.5.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sbt-bloop",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "97f2171fab0f32bdada2141eb34824dfdd1a5449"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/ch/epfl/scala/sbt-bloop_2.12_1.0/1.5.4/sbt-bloop-1.5.4.jar"
+                        },
+                        {
+                            "name": "sbt-bloop",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1a30c50ae4e01491d6fafd931eab67b3483b9c89"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/ch/epfl/scala/sbt-bloop_2.12_1.0/1.5.4/sbt-bloop-1.5.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.spray",
+                    "name": "sbt-revolver",
+                    "version": "0.9.1",
+                    "configurations": "compile",
+                    "artifacts": [
+                        {
+                            "name": "sbt-revolver",
+                            "path": "/home/windymelt/.cache/coursier/v1/https/repo.scala-sbt.org/scalasbt/sbt-plugin-releases/io.spray/sbt-revolver/scala_2.12/sbt_1.0/0.9.1/jars/sbt-revolver.jar"
+                        },
+                        {
+                            "name": "sbt-revolver",
+                            "classifier": "sources",
+                            "path": "/home/windymelt/.cache/coursier/v1/https/repo.scala-sbt.org/scalasbt/sbt-plugin-releases/io.spray/sbt-revolver/scala_2.12/sbt_1.0/0.9.1/srcs/sbt-revolver-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "ch.epfl.scala",
+                    "name": "bloop-config_2.12",
+                    "version": "1.5.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "bloop-config_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0f41413ed419ff234b92ae8bbcf32c6c03947a5c"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/ch/epfl/scala/bloop-config_2.12/1.5.4/bloop-config_2.12-1.5.4.jar"
+                        },
+                        {
+                            "name": "bloop-config_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "57022ee57e6de90a03752444013fd4983550b10a"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/ch/epfl/scala/bloop-config_2.12/1.5.4/bloop-config_2.12-1.5.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-library",
+                    "version": "2.12.18",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-library",
+                            "path": "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-library.jar"
+                        },
+                        {
+                            "name": "scala-library",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "da6a485d45eeebe061858d1e8ad424a300a077ac"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/scala-library/2.12.18/scala-library-2.12.18-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.plokhotnyuk.jsoniter-scala",
+                    "name": "jsoniter-scala-core_2.12",
+                    "version": "2.4.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jsoniter-scala-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e7b050b85c822abc680eeafd8a3d2fae3d3cb30d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/github/plokhotnyuk/jsoniter-scala/jsoniter-scala-core_2.12/2.4.0/jsoniter-scala-core_2.12-2.4.0.jar"
+                        },
+                        {
+                            "name": "jsoniter-scala-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "98fc0395798f9e26bf6351c51c8bb0f15d027001"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/github/plokhotnyuk/jsoniter-scala/jsoniter-scala-core_2.12/2.4.0/jsoniter-scala-core_2.12-2.4.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "sbt",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sbt",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "6899330125d3a4a143e02bae4fbcb338f08b3169"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/sbt/1.9.1/sbt-1.9.1.jar"
+                        },
+                        {
+                            "name": "sbt",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "4fe4de67afc45ed007f51d3748b3e1ac3d0ce4e5"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/sbt/1.9.1/sbt-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "main_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "main_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5e845056a6de6988787c0cc904dc4a637e9ad9cc"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/main_2.12/1.9.1/main_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "main_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "69a843ecfbd82f6ed28d16fde57e4f01b1aca558"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/main_2.12/1.9.1/main_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "io_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "io_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f881afeed062b05dc04d1e0d5a8e83e9db45f43d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/io_2.12/1.9.1/io_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "io_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "01492f04b196e3523b2029c27df36d9744760e19"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/io_2.12/1.9.1/io_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "logic_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "logic_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ff8aa4f9208c9b4379d0bac6e4fc8909982988b2"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/logic_2.12/1.9.1/logic_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "logic_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "14fe180ab4e1b95adf4b507aac63d0edf1683c46"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/logic_2.12/1.9.1/logic_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "actions_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "actions_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "07da3965ad5a2729019a3b6deaf9eb2ed59b00cc"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/actions_2.12/1.9.1/actions_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "actions_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3038fdca3f5b2ab54270701f8edb121c7ca1726d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/actions_2.12/1.9.1/actions_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "main-settings_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "main-settings_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f9ce0827e9889763595b5117f4977bfd95c43bf0"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/main-settings_2.12/1.9.1/main-settings_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "main-settings_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0a023e463d26c06766e5877a01adb201dc6d66ee"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/main-settings_2.12/1.9.1/main-settings_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "run_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "run_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "6adc0a1f213e4b51fe65f67b22f2279648e3640e"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/run_2.12/1.9.1/run_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "run_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ddb65f3ecb6cd84212bd55d0cc6358e8b4123529"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/run_2.12/1.9.1/run_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "command_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "command_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0d38bcfa0766723a1fb8347883d2d2e27f147f74"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/command_2.12/1.9.1/command_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "command_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "16085e9712b734149e98de565cc2d111665825a0"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/command_2.12/1.9.1/command_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "collections_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "collections_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "cc476fe48be4512477789212db11a13397e0edce"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/collections_2.12/1.9.1/collections_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "collections_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e16b0f98536407529bbb70735f611ba92d49b168"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/collections_2.12/1.9.1/collections_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "scripted-plugin_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scripted-plugin_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ecb7062a408b7b5af1aa8230b9af00e416dfadd7"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/scripted-plugin_2.12/1.9.1/scripted-plugin_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "scripted-plugin_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "09335e62e113d2557e0f546b0e8a6931b9695485"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/scripted-plugin_2.12/1.9.1/scripted-plugin_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-lm-integration_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-lm-integration_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "bdf785401fe88aee88f0e291dd1edda972ac8c56"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-lm-integration_2.12/1.9.1/zinc-lm-integration_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "zinc-lm-integration_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3e9525dfa1c367d713faab82646889f95a901139"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-lm-integration_2.12/1.9.1/zinc-lm-integration_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-logging_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-logging_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3f936f26b46f3cbba2f311e140477cb44c6ca565"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-logging_2.12/1.9.1/util-logging_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-logging_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c3845977c7fef21bd9719b9efeaa1560a16e4883"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-logging_2.12/1.9.1/util-logging_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-xml_2.12",
+                    "version": "2.1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-xml_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "16b228fa6f9d5afece0f2d2d6d5b03d5372dbea4"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-xml_2.12/2.1.0/scala-xml_2.12-2.1.0.jar"
+                        },
+                        {
+                            "name": "scala-xml_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d30014effe0bd47eb246043463da097aa50cd6ab"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-xml_2.12/2.1.0/scala-xml_2.12-2.1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "launcher-interface",
+                    "version": "1.4.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "launcher-interface",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ff1db3d3ff7e4222625e63d6c2bbb69e76432a64"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/launcher-interface/1.4.2/launcher-interface-1.4.2.jar"
+                        },
+                        {
+                            "name": "launcher-interface",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1fd770d33a7190527d9426a26a848e8a5ca0549a"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/launcher-interface/1.4.2/launcher-interface-1.4.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.ben-manes.caffeine",
+                    "name": "caffeine",
+                    "version": "2.8.5",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "caffeine",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f0eafef6e1529a44e36549cd9d1fc06d3a57f384"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/github/ben-manes/caffeine/caffeine/2.8.5/caffeine-2.8.5.jar"
+                        },
+                        {
+                            "name": "caffeine",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "46c303a188bb83edaf5563ce35b5ef1e943f16c2"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/github/ben-manes/caffeine/caffeine/2.8.5/caffeine-2.8.5-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.get-coursier",
+                    "name": "lm-coursier-shaded_2.12",
+                    "version": "2.1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "lm-coursier-shaded_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "785f5f8341b5c90290731e1e09166567fad2a2de"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/io/get-coursier/lm-coursier-shaded_2.12/2.1.0/lm-coursier-shaded_2.12-2.1.0.jar"
+                        },
+                        {
+                            "name": "lm-coursier-shaded_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ff561045ac59f73fa5789de4aa460d71e3408fc4"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/io/get-coursier/lm-coursier-shaded_2.12/2.1.0/lm-coursier-shaded_2.12-2.1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.logging.log4j",
+                    "name": "log4j-api",
+                    "version": "2.17.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4j-api",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d771af8e336e372fb5399c99edabe0919aeaf5b2"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar"
+                        },
+                        {
+                            "name": "log4j-api",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d23d37cc41300a7f6eba7813855dbb224e2a3177"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.logging.log4j",
+                    "name": "log4j-core",
+                    "version": "2.17.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4j-core",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "779f60f3844dadc3ef597976fcb1e5127b1f343d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar"
+                        },
+                        {
+                            "name": "log4j-core",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "311c00d3764db7fa3ba5f26d0acb5840e52454aa"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.logging.log4j",
+                    "name": "log4j-slf4j-impl",
+                    "version": "2.17.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4j-slf4j-impl",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "84692d456bcce689355d33d68167875e486954dd"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-slf4j-impl/2.17.1/log4j-slf4j-impl-2.17.1.jar"
+                        },
+                        {
+                            "name": "log4j-slf4j-impl",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "b077be6d7d8f4f98576b6ac870576e9a288dea7b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/apache/logging/log4j/log4j-slf4j-impl/2.17.1/log4j-slf4j-impl-2.17.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "librarymanagement-core_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "librarymanagement-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "716935da291843e9fe95324ce35c3e02accd092d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/librarymanagement-core_2.12/1.9.1/librarymanagement-core_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "librarymanagement-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f080b85579fe72d2e4b411ecc5cb371048663213"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/librarymanagement-core_2.12/1.9.1/librarymanagement-core_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "librarymanagement-ivy_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "librarymanagement-ivy_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c609040e2b3d50c0da884d23aa7cdc2da22f3f1b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/librarymanagement-ivy_2.12/1.9.1/librarymanagement-ivy_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "librarymanagement-ivy_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1b47d394a1885ff90354a15072d5515cf0dbad62"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/librarymanagement-ivy_2.12/1.9.1/librarymanagement-ivy_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "compiler-interface",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "compiler-interface",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1292cc121fa721ef187f349791be177cf9575ffe"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/compiler-interface/1.9.2/compiler-interface-1.9.2.jar"
+                        },
+                        {
+                            "name": "compiler-interface",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f88d7cf9a1557365087ba23cd717aecd0f583252"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/compiler-interface/1.9.2/compiler-interface-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-compile_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-compile_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ee8c895ac60f52b2219c7a0a6575ae534189cb52"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-compile_2.12/1.9.2/zinc-compile_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-compile_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "a07899202c329d4055b295d33d25a41f166ab0af"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-compile_2.12/1.9.2/zinc-compile_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.swoval",
+                    "name": "file-tree-views",
+                    "version": "2.1.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "file-tree-views",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ed99286fc1552a958e96360fcba80fab0c5a6efd"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/swoval/file-tree-views/2.1.10/file-tree-views-2.1.10.jar"
+                        },
+                        {
+                            "name": "file-tree-views",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "788a14f7fb2d76beb9d4925fdc81f7c2403d91ac"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/swoval/file-tree-views/2.1.10/file-tree-views-2.1.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "net.java.dev.jna",
+                    "name": "jna",
+                    "version": "5.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jna",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1200e7ebeedbe0d10062093f32925a912020e747"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar"
+                        },
+                        {
+                            "name": "jna",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e55ddc56d092866b6d59822f825c253960a6e504"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/java/dev/jna/jna/5.13.0/jna-5.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "net.java.dev.jna",
+                    "name": "jna-platform",
+                    "version": "5.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jna-platform",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "88e9a306715e9379f3122415ef4ae759a352640d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/java/dev/jna/jna-platform/5.13.0/jna-platform-5.13.0.jar"
+                        },
+                        {
+                            "name": "jna-platform",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e5e195977f4aad007d418a33401c43d1ae929134"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/java/dev/jna/jna-platform/5.13.0/jna-platform-5.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-relation_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-relation_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "b8026c8c1a5738957e1e3b30a24de2706475a08c"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-relation_2.12/1.9.1/util-relation_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-relation_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "02122e99eaea374a79db6a0cb6e3248ad9a31f2e"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-relation_2.12/1.9.1/util-relation_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "completion_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "completion_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "93878b8de6a7c1aed1078841f45339af309c91c1"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/completion_2.12/1.9.1/completion_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "completion_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "7969e2c6d9c4492dab9dfe633d076f8d139257a0"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/completion_2.12/1.9.1/completion_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "task-system_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "task-system_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "03dec42af0aca65763405fcc3115d2a56a41611c"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/task-system_2.12/1.9.1/task-system_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "task-system_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c2a4da74d8fe5302504417412f10393b62cbd165"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/task-system_2.12/1.9.1/task-system_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "tasks_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "tasks_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "a15acbfe8af7d6a8b02eae0ac1c71f36fa54be72"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/tasks_2.12/1.9.1/tasks_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "tasks_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5302eea98d1adfb67247ee771856ab2dd682f7ad"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/tasks_2.12/1.9.1/tasks_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "testing_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "testing_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "7a3ac4a873c6e7e324a0f82d8405ff80cb4728e5"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/testing_2.12/1.9.1/testing_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "testing_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "bf811c8b650fc8e3f0c2439fe2417e22581eda28"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/testing_2.12/1.9.1/testing_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-tracking_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-tracking_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "dba4038ec99866aa33fe64800e90aeb57b685521"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-tracking_2.12/1.9.1/util-tracking_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-tracking_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "de1b8c89d53f9401e40cca1f29bc05dc18f48a35"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-tracking_2.12/1.9.1/util-tracking_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "sjson-new-scalajson_2.12",
+                    "version": "0.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sjson-new-scalajson_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "24625f80b7612bb1c6ed9fc1368d6469c04b4b48"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-scalajson_2.12/0.9.1/sjson-new-scalajson_2.12-0.9.1.jar"
+                        },
+                        {
+                            "name": "sjson-new-scalajson_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f22c82cb8e1bf8622d0b37e577b649f00d503eb3"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-scalajson_2.12/0.9.1/sjson-new-scalajson_2.12-0.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline-terminal",
+                    "version": "3.19.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline-terminal",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d4a75a8be7490c8529c029d6baa59e838f45f22e"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal/3.19.0/jline-terminal-3.19.0.jar"
+                        },
+                        {
+                            "name": "jline-terminal",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c23b3db5eef39bb6df37eaba98297f74ba3433c5"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal/3.19.0/jline-terminal-3.19.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-classpath_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-classpath_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "06456c903aa0272d5053476b05915caef563628f"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-classpath_2.12/1.9.2/zinc-classpath_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-classpath_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ac967282147d4962eaced2fe96cb411007323141"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-classpath_2.12/1.9.2/zinc-classpath_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-apiinfo_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-apiinfo_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "fde55a5c6cd24224a1726ca6db6ceada10510356"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-apiinfo_2.12/1.9.2/zinc-apiinfo_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-apiinfo_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5d8526f97f0102fa1df46764f34d5da769333e21"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-apiinfo_2.12/1.9.2/zinc-apiinfo_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "da06c07e577f63aa9384fb9836e65c89164adca3"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc_2.12/1.9.2/zinc_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5dee2250a2c915b6d937adf4d797fe5d689f6432"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc_2.12/1.9.2/zinc_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "core-macros_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "core-macros_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "6ba5ac1a7d9ea99d47273f154f25e47055604fed"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/core-macros_2.12/1.9.1/core-macros_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "core-macros_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5462b39d6564181a754926e6960090ec61a23bd2"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/core-macros_2.12/1.9.1/core-macros_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-cache_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-cache_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f8950c9bc811321b891075e289e45358ae7fc9f9"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-cache_2.12/1.9.1/util-cache_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-cache_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5252b6f5e5fdaec5d32a45ed08742d81861b3e9c"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-cache_2.12/1.9.1/util-cache_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-control_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-control_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c3d269e96ba123cd7668b048931f3e56bdf6759b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-control_2.12/1.9.1/util-control_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-control_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "71fb93f6e23ce8c7a96d024b7df52bd8015ed7b1"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-control_2.12/1.9.1/util-control_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "protocol_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "protocol_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "dca2b4b035e9e38cf1d7cbe90fb6d259caa20ae3"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/protocol_2.12/1.9.1/protocol_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "protocol_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e4ef750e49392690be077e0e2e37b189983ef42e"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/protocol_2.12/1.9.1/protocol_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "sjson-new-core_2.12",
+                    "version": "0.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sjson-new-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ef97651184d64ef0e6177c5fe3bfcd3706cc274b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-core_2.12/0.9.1/sjson-new-core_2.12-0.9.1.jar"
+                        },
+                        {
+                            "name": "sjson-new-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "10da2699bd9d3b68d099d0cce0204b39de5d3c04"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-core_2.12/0.9.1/sjson-new-core_2.12-0.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "template-resolver",
+                    "version": "0.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "template-resolver",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "758dcd28de14b3a6eaa39d314a074d59218f4de3"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/template-resolver/0.1/template-resolver-0.1.jar"
+                        },
+                        {
+                            "name": "template-resolver",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "917e729d75d06596446a74ff217be222d1d57f28"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/template-resolver/0.1/template-resolver-0.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-position_2.12",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-position_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1a071d6e62df7e6275b09e207b24cca80e98eb8c"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-position_2.12/1.9.1/util-position_2.12-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-position_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "924922d30b8924d4a8b76488c67f42ffac455538"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-position_2.12/1.9.1/util-position_2.12-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-compile-core_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-compile-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "cc7ed72ed74aaf37f3a4ea3545343ada4557fe41"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-compile-core_2.12/1.9.2/zinc-compile-core_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-compile-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "8fa78f59f73fc4f2184affe1dbed548e5275b8b8"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-compile-core_2.12/1.9.2/zinc-compile-core_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "util-interface",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "util-interface",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0984b3e152c1044cce0c429c49f1d17c6ab10c48"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-interface/1.9.1/util-interface-1.9.1.jar"
+                        },
+                        {
+                            "name": "util-interface",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "bffba0295baebd3c9bfe3185a7df32ac0cc899fc"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/util-interface/1.9.1/util-interface-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt.jline",
+                    "name": "jline",
+                    "version": "2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "52532bf3c4845940d5ea7d7ad7c0625ffad4f21a"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/jline/jline/2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493/jline-2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493.jar"
+                        },
+                        {
+                            "name": "jline",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "427c4eb095a0e228166ad02e4e306fed0a2dcba2"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/jline/jline/2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493/jline-2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline-terminal-jna",
+                    "version": "3.19.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline-terminal-jna",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c9f9071612424157ca3d5a774a42f2c9b44c10ef"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal-jna/3.19.0/jline-terminal-jna-3.19.0.jar"
+                        },
+                        {
+                            "name": "jline-terminal-jna",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "7b91b76150a9e2b9b06b5cbb56d2326d8f734f26"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal-jna/3.19.0/jline-terminal-jna-3.19.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline-terminal-jansi",
+                    "version": "3.19.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline-terminal-jansi",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0fdfbc23f42bf80176586b67179d8d7ee5261cff"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal-jansi/3.19.0/jline-terminal-jansi-3.19.0.jar"
+                        },
+                        {
+                            "name": "jline-terminal-jansi",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "a6d190e26e69c3ce0092e41f56385a6d9ceabcec"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-terminal-jansi/3.19.0/jline-terminal-jansi-3.19.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.lmax",
+                    "name": "disruptor",
+                    "version": "3.4.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "disruptor",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e2543a63086b4189fbe418d05d56633bc1a815f7"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/lmax/disruptor/3.4.2/disruptor-3.4.2.jar"
+                        },
+                        {
+                            "name": "disruptor",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "b5d79464398c5229fbe07e02f2fd06c9ba53be81"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/lmax/disruptor/3.4.2/disruptor-3.4.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-reflect",
+                    "version": "2.12.18",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-reflect",
+                            "path": "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-reflect.jar"
+                        },
+                        {
+                            "name": "scala-reflect",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1584beed9ce12883d611edd6d110cf3ed1a38a4e"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/scala-reflect/2.12.18/scala-reflect-2.12.18-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.checkerframework",
+                    "name": "checker-qual",
+                    "version": "3.4.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "checker-qual",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "b3df2bf4d7d258e5aa192c3ac6f7f84688046262"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/checkerframework/checker-qual/3.4.1/checker-qual-3.4.1.jar"
+                        },
+                        {
+                            "name": "checker-qual",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "1ccc444dc0271a148e2475f59a61fbe8587dd65f"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/checkerframework/checker-qual/3.4.1/checker-qual-3.4.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.google.errorprone",
+                    "name": "error_prone_annotations",
+                    "version": "2.4.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "error_prone_annotations",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "32ecccc595e4e4d813a80ee9e3ab5813d65874eb"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar"
+                        },
+                        {
+                            "name": "error_prone_annotations",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3921a2ff59cbc7ed711b7925109d1f54ec3b8a70"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-collection-compat_2.12",
+                    "version": "2.9.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-collection-compat_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ff06706d7baaad4405ca4fe985aa167396414a25"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-collection-compat_2.12/2.9.0/scala-collection-compat_2.12-2.9.0.jar"
+                        },
+                        {
+                            "name": "scala-collection-compat_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0698283e92bdddb2936a52c66f864f99abc08c3a"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-collection-compat_2.12/2.9.0/scala-collection-compat_2.12-2.9.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.slf4j",
+                    "name": "slf4j-api",
+                    "version": "1.7.36",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "slf4j-api",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "6c62681a2f655b49963a5983b8b0950a6120ae14"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar"
+                        },
+                        {
+                            "name": "slf4j-api",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ae9c1aae0033af915cfa75d850eb9d880f21a701"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-compiler",
+                    "version": "2.12.18",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-compiler",
+                            "path": "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-compiler.jar"
+                        },
+                        {
+                            "name": "scala-compiler",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5ed48435f6c3b40a1480fa55dd77c1c7bf47d1ba"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/scala-compiler/2.12.18/scala-compiler-2.12.18-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.jcraft",
+                    "name": "jsch",
+                    "version": "0.1.54",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jsch",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "da3584329a263616e277e15462b387addd1b208d"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar"
+                        },
+                        {
+                            "name": "jsch",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "91d6069df9be9e076bdb124e82fc2a9af9547616"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "gigahorse-apache-http_2.12",
+                    "version": "0.7.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "gigahorse-apache-http_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "2e9ceea59a86def0474279f35dbe74e5d9631c50"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/gigahorse-apache-http_2.12/0.7.0/gigahorse-apache-http_2.12-0.7.0.jar"
+                        },
+                        {
+                            "name": "gigahorse-apache-http_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "9c4958cb1573220694ec55cfec90a1a2abaa6a43"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/gigahorse-apache-http_2.12/0.7.0/gigahorse-apache-http_2.12-0.7.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt.ivy",
+                    "name": "ivy",
+                    "version": "2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "ivy",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "411f3a9b8ef6ec117f6fcd2090eead6afc61b13c"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/ivy/ivy/2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e/ivy-2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e.jar"
+                        },
+                        {
+                            "name": "ivy",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "b4c1ed6d9e51d877ee9eea4a5c27f4b7a2545d42"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/ivy/ivy/2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e/ivy-2.3.0-sbt-a8f9eb5bf09d0539ea3658a2c2d4e09755b5133e-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline-reader",
+                    "version": "3.19.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline-reader",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0645d72953711ee4e61705bc5e576fdd1f22c087"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-reader/3.19.0/jline-reader-3.19.0.jar"
+                        },
+                        {
+                            "name": "jline-reader",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "f50fc32bf518ca12ce52a20709d9683301dabec0"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-reader/3.19.0/jline-reader-3.19.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline-builtins",
+                    "version": "3.19.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline-builtins",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "49c2c6dbd9d26de02cab6af631b293a3b3c72fd5"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-builtins/3.19.0/jline-builtins-3.19.0.jar"
+                        },
+                        {
+                            "name": "jline-builtins",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "9b1e5586b6a2d042b5c1e6d9c15a490c56226d05"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-builtins/3.19.0/jline-builtins-3.19.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "test-agent",
+                    "version": "1.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "test-agent",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c36b29aae7463d74041b6d17cd5508704c43a603"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/test-agent/1.9.1/test-agent-1.9.1.jar"
+                        },
+                        {
+                            "name": "test-agent",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "4b14da6f2d737497fb4452e94bb3ca0e7838da1b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/test-agent/1.9.1/test-agent-1.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "test-interface",
+                    "version": "1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "test-interface",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0a3f14d010c4cb32071f863d97291df31603b521"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar"
+                        },
+                        {
+                            "name": "test-interface",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d44b23e9e3419ad0e00b91bba764a48d43075000"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "shaded-jawn-parser_2.12",
+                    "version": "0.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "shaded-jawn-parser_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "49efc7e64f1843d776919d3a9cfdd811fb619318"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-jawn-parser_2.12/0.9.1/shaded-jawn-parser_2.12-0.9.1.jar"
+                        },
+                        {
+                            "name": "shaded-jawn-parser_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "60f6cc6c4f2a0953945208317a728b17be219ddf"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-jawn-parser_2.12/0.9.1/shaded-jawn-parser_2.12-0.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "shaded-scalajson_2.12",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "shaded-scalajson_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "10f27db4bc3b0c0c1a5c9a28a67f84995a2c3013"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-scalajson_2.12/1.0.0-M4/shaded-scalajson_2.12-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "shaded-scalajson_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "815c3da773917a299e10657936129df69b502d95"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-scalajson_2.12/1.0.0-M4/shaded-scalajson_2.12-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "compiler-bridge_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "compiler-bridge_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5e5a8b7904c03924ab6547ce96f096a66591cac6"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/compiler-bridge_2.12/1.9.2/compiler-bridge_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "compiler-bridge_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "9d932b9bf9db251c3b7ee544145633c56759c003"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/compiler-bridge_2.12/1.9.2/compiler-bridge_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-classfile_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-classfile_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3e57c5dfad5a3df8ef0467a89f9134e1a4f4bcaa"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-classfile_2.12/1.9.2/zinc-classfile_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-classfile_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "2b1d10cf791240a57006cc4c06e26cce852a7977"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-classfile_2.12/1.9.2/zinc-classfile_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-core_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d6ed9579d139107af461e8dbafc061f22dfcef52"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-core_2.12/1.9.2/zinc-core_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c3008420e692f60126ea4500f44a1f7c32a1a101"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-core_2.12/1.9.2/zinc-core_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-persist_2.12",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-persist_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "dbdaa20e29647169623cf9776c4188cf29b7fb81"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-persist_2.12/1.9.2/zinc-persist_2.12-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-persist_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "2981ab491c0dcc2507a67976d1203e93fbda443b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-persist_2.12/1.9.2/zinc-persist_2.12-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "sjson-new-murmurhash_2.12",
+                    "version": "0.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sjson-new-murmurhash_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3374b77a0c9b35abbe9b5496304c34356f0e691a"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-murmurhash_2.12/0.9.1/sjson-new-murmurhash_2.12-0.9.1.jar"
+                        },
+                        {
+                            "name": "sjson-new-murmurhash_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "6791e427e38b28f7ef5e7d5e56f9b379b11393ee"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/sjson-new-murmurhash_2.12/0.9.1/sjson-new-murmurhash_2.12-0.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt.ipcsocket",
+                    "name": "ipcsocket",
+                    "version": "1.6.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "ipcsocket",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "10743943fcdb41a26933c9edb3dcd3744717f791"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/ipcsocket/ipcsocket/1.6.2/ipcsocket-1.6.2.jar"
+                        },
+                        {
+                            "name": "ipcsocket",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "22e1eafcfc576b0c58369afe04170503a137fe48"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/ipcsocket/ipcsocket/1.6.2/ipcsocket-1.6.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-parser-combinators_2.12",
+                    "version": "1.1.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-parser-combinators_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "2ad65ccbeed662b51e2b96221cb4e7d7d6b7b87a"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.1.2/scala-parser-combinators_2.12-1.1.2.jar"
+                        },
+                        {
+                            "name": "scala-parser-combinators_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "17be9d543fa1f7f01d57722cc37d0c4024a15f69"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.1.2/scala-parser-combinators_2.12-1.1.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "net.openhft",
+                    "name": "zero-allocation-hashing",
+                    "version": "0.10.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zero-allocation-hashing",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "76065147c8a8161d82c715b33dcd1bdbd09ed593"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/openhft/zero-allocation-hashing/0.10.1/zero-allocation-hashing-0.10.1.jar"
+                        },
+                        {
+                            "name": "zero-allocation-hashing",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "b869664cefaccd78f779f41200d1948a4aa35eb7"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/net/openhft/zero-allocation-hashing/0.10.1/zero-allocation-hashing-0.10.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.fusesource.jansi",
+                    "name": "jansi",
+                    "version": "2.1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jansi",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "605acb1326439709ac32b1bdf7c2606b9ba7fc35"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/fusesource/jansi/jansi/2.1.0/jansi-2.1.0.jar"
+                        },
+                        {
+                            "name": "jansi",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0855339f08996f1877f0b18d0244cbf314b730aa"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/fusesource/jansi/jansi/2.1.0/jansi-2.1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "gigahorse-core_2.12",
+                    "version": "0.7.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "gigahorse-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "356b2eeceb921fcd44300fa3e0b4dacde1e412f9"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/gigahorse-core_2.12/0.7.0/gigahorse-core_2.12-0.7.0.jar"
+                        },
+                        {
+                            "name": "gigahorse-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "69890f4dbc514a6a05489c0349f75c61c34c3b16"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/gigahorse-core_2.12/0.7.0/gigahorse-core_2.12-0.7.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.eed3si9n",
+                    "name": "shaded-apache-httpasyncclient",
+                    "version": "0.7.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "shaded-apache-httpasyncclient",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "32ecbd7d79f81d50c54a14d4f8dad1c8e93a8830"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-apache-httpasyncclient/0.7.0/shaded-apache-httpasyncclient-0.7.0.jar"
+                        },
+                        {
+                            "name": "shaded-apache-httpasyncclient",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5b6222f6c11d9b885eec4da0f84e7b07444d0d9b"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/eed3si9n/shaded-apache-httpasyncclient/0.7.0/shaded-apache-httpasyncclient-0.7.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline-style",
+                    "version": "3.19.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline-style",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d99f3ff54a354b5b69237582faddd7b1af894a44"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-style/3.19.0/jline-style-3.19.0.jar"
+                        },
+                        {
+                            "name": "jline-style",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "08c11976195c48a0733c934802ecce0a3c65a8c5"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/jline/jline-style/3.19.0/jline-style-3.19.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "zinc-persist-core-assembly",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zinc-persist-core-assembly",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "3f909584d1df7af8b1a7e24bd24d790983f631c7"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-persist-core-assembly/1.9.2/zinc-persist-core-assembly-1.9.2.jar"
+                        },
+                        {
+                            "name": "zinc-persist-core-assembly",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "0833189e51eb6de33105a881ec4a4e2bc4535ac7"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/zinc-persist-core-assembly/1.9.2/zinc-persist-core-assembly-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "sbinary_2.12",
+                    "version": "0.5.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sbinary_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "079c623888eae9dc6c7c0aabcd491fb5ff896a49"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/sbinary_2.12/0.5.1/sbinary_2.12-0.5.1.jar"
+                        },
+                        {
+                            "name": "sbinary_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "c2313c7e56d7088fefb6769f54fa9f5bffff8088"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-sbt/sbinary_2.12/0.5.1/sbinary_2.12-0.5.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe",
+                    "name": "ssl-config-core_2.12",
+                    "version": "0.6.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "ssl-config-core_2.12",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "ae098ad2155d228e70b002ac3d6099214ad4aa9e"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/typesafe/ssl-config-core_2.12/0.6.1/ssl-config-core_2.12-0.6.1.jar"
+                        },
+                        {
+                            "name": "ssl-config-core_2.12",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "42c672578a65c4bf407dc1da6b259bce72c76e08"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/typesafe/ssl-config-core_2.12/0.6.1/ssl-config-core_2.12-0.6.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.reactivestreams",
+                    "name": "reactive-streams",
+                    "version": "1.0.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "reactive-streams",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "d9fb7a7926ffa635b3dcaa5049fb2bfa25b3e7d0"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar"
+                        },
+                        {
+                            "name": "reactive-streams",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "e6ffdff8c438d959376c91d94b319457354a84c5"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe",
+                    "name": "config",
+                    "version": "1.4.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "config",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "4c40a633e7994cfb0354244efb6d03fcb11c3ecf"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/typesafe/config/1.4.2/config-1.4.2.jar"
+                        },
+                        {
+                            "name": "config",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "7bccb8431d275619f4461f1b63a2173b0d2c5de1"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/com/typesafe/config/1.4.2/config-1.4.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-compiler",
+                    "version": "2.12.18",
+                    "configurations": "optional",
+                    "artifacts": [
+                        {
+                            "name": "scala-compiler",
+                            "path": "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-compiler.jar"
+                        },
+                        {
+                            "name": "scala-compiler",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "5ed48435f6c3b40a1480fa55dd77c1c7bf47d1ba"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/scala-compiler/2.12.18/scala-compiler-2.12.18-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-library",
+                    "version": "2.12.18",
+                    "configurations": "optional",
+                    "artifacts": [
+                        {
+                            "name": "scala-library",
+                            "path": "/home/windymelt/.sbt/boot/scala-2.12.18/lib/scala-library.jar"
+                        },
+                        {
+                            "name": "scala-library",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "da6a485d45eeebe061858d1e8ad424a300a077ac"
+                            },
+                            "path": "/home/windymelt/.cache/coursier/v1/https/maven-central-asia.storage-download.googleapis.com/maven2/org/scala-lang/scala-library/2.12.18/scala-library-2.12.18-sources.jar"
+                        }
+                    ]
+                }
+            ]
+        },
+        "tags": [
+            "library"
+        ]
+    }
+}
