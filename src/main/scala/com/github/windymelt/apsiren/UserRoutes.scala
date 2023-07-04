@@ -102,6 +102,32 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 }
 """)
       }
+    } ~ path("inbox") {
+      get { // HARDCODING
+        complete("""{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "summary": "inbox of siren",
+  "type": "OrderedCollection",
+  "totalItems": 0,
+  "orderedItems": [
+  ]
+}""")
+      }
+    } ~ path("outbox") {
+      get {
+        complete("""{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "summary": "outbox of siren",
+  "type": "OrderedCollection",
+  "totalItems": 1,
+  "orderedItems": [{
+    "type": "Note",
+    "name": "",
+    "content": "This is a simple note"
+  }
+  ]
+}""")
+      }
     } ~ pathPrefix(".well-known") {
       path("webfinger") {
         // TODO: accept only "@siren"
@@ -119,6 +145,26 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 }
 """)
         }
+      }
+    } ~ path("nodeinfo" / "2.1") { // TODO: version from build.sbt, name from build.sbt
+      get {
+        complete("""{
+    "openRegistrations": false,
+    "protocols": [
+        "activitypub"
+    ],
+    "software": {
+        "name": "siren",
+        "version": "0.1.0"
+    },
+    "usage": {
+        "users": {
+            "total": 1
+        }
+    },
+    "version": "2.1"
+}
+""")
       }
     }
   // #all-routes
