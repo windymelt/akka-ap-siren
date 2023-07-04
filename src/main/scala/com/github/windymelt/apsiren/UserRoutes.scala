@@ -82,8 +82,9 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
       )
       // #users-get-delete
     } ~ path("actor") {
-      get { // HARDCODING
-        complete("""{
+      logRequest("actor") {
+        get { // HARDCODING
+          complete("""{
 	"@context": [
 		"https://www.w3.org/ns/activitystreams",
 		"https://w3id.org/security/v1"
@@ -101,6 +102,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 	}
 }
 """)
+        }
       }
     } ~ path("inbox") {
       get { // HARDCODING
@@ -129,10 +131,13 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 }""")
       }
     } ~ pathPrefix(".well-known") {
-      path("webfinger") {
-        // TODO: accept only "@siren"
-        parameter("resource".as[String]) { r =>
-          complete("""{
+      concat(
+        path("webfinger") {
+          // TODO: accept only "@siren"
+          logRequest("webfinger") {
+            get {
+              parameter("resource".as[String]) { r =>
+                complete("""{
 	"subject": "acct:siren@siren.capslock.dev",
 
 	"links": [
@@ -144,11 +149,25 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 	]
 }
 """)
+              }
+            }
+          }
+        },
+        path("host-meta") {
+          logRequest("host-meta") {
+            get {
+              complete("""<?xml version="1.0"?>
+<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
+    <Link rel="lrdd" type="application/xrd+xml" template="https://siren.capslock.dev/.well-known/webfinger?resource={uri}" />
+</XRD>""")
+            }
+          }
         }
-      }
+      )
     } ~ path("nodeinfo" / "2.1") { // TODO: version from build.sbt, name from build.sbt
       get {
-        complete("""{
+        logRequest("nodeinfo21") {
+          complete("""{
     "openRegistrations": false,
     "protocols": [
         "activitypub"
@@ -165,6 +184,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
     "version": "2.1"
 }
 """)
+        }
       }
     }
   // #all-routes
