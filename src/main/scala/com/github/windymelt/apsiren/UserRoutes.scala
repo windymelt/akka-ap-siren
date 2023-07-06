@@ -15,6 +15,7 @@ import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.StandardRoute
 import akka.util.Timeout
 import com.github.windymelt.apsiren.UserRegistry._
+import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 
 import scala.concurrent.Future
 
@@ -25,8 +26,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
 ) {
 
   // #user-routes-class
-  import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-  import JsonFormats._
+  import FailFastCirceSupport._
   // #import-json-formats
 
   // If ask takes more time than this to complete the request is failed
@@ -49,48 +49,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
   // #users-get-post
   // #users-get-delete
   val userRoutes: Route =
-    pathPrefix("users") {
-      concat(
-        // #users-get-delete
-        pathEnd {
-          concat(
-            get {
-              complete(getUsers())
-            },
-            post {
-              entity(as[User]) { user =>
-                onSuccess(createUser(user)) { performed =>
-                  complete((StatusCodes.Created, performed))
-                }
-              }
-            }
-          )
-        },
-        // #users-get-delete
-        // #users-get-post
-        path(Segment) { name =>
-          concat(
-            get {
-              // #retrieve-user-info
-              rejectEmptyResponse {
-                onSuccess(getUser(name)) { response =>
-                  complete(response.maybeUser)
-                }
-              }
-              // #retrieve-user-info
-            },
-            delete {
-              // #users-delete-logic
-              onSuccess(deleteUser(name)) { performed =>
-                complete((StatusCodes.OK, performed))
-              }
-              // #users-delete-logic
-            }
-          )
-        }
-      )
-      // #users-get-delete
-    } ~ path("actor") {
+    path("actor") {
       logRequestResult(("actor", Logging.InfoLevel)) {
         get { // HARDCODING
           complete(activity(s"""{
@@ -192,18 +151,25 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
               parameter("resource".as[String]) { r =>
                 r match {
                   case "acct:siren@siren.capslock.dev" =>
-                    complete(jrd("""{
-                  "subject": "acct:siren@siren.capslock.dev",
-
-                  "links": [
-                    {
-                      "rel": "self",
-                      "type": "application/activity+json",
-                      "href": "https://siren.capslock.dev/actor"
-                    }
-                  ]
-                }
-                """))
+                    // XXX: なんて酷いコードなんだ! これではハエの集会場だ
+                    // TODO: まともなコードに直す
+                    import io.circe.generic.auto._
+                    import io.circe.syntax._
+                    val Right(jrd) =
+                      ContentType.parse("application/jrd+json; charset=utf-8")
+                    val wf =
+                      Webfinger(
+                        subject = r,
+                        links = Seq(
+                          Webfinger.WebfingerLink(
+                            rel = "self",
+                            `type` = "application/activity+json",
+                            href = "https://siren.capslock.dev/actor"
+                          )
+                        )
+                      ).asJson.noSpaces.getBytes()
+                    val res = HttpResponse(entity = HttpEntity(jrd, wf))
+                    complete(res)
                   case _ => reject
                 }
               }
@@ -224,23 +190,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
     } ~ path("nodeinfo" / "2.1") { // TODO: version from build.sbt, name from build.sbt
       get {
         logRequest("nodeinfo21") {
-          complete(json("""{
-              "openRegistrations": false,
-              "protocols": [
-                  "activitypub"
-              ],
-              "software": {
-                  "name": "siren",
-                  "version": "0.1.0"
-              },
-              "usage": {
-                  "users": {
-                      "total": 1
-                  }
-              },
-              "version": "2.1"
-          }
-          """))
+          complete(NodeInfo())
         }
       }
     }
