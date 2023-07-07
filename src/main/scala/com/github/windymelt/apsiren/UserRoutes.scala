@@ -190,6 +190,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
     } ~ path("nodeinfo" / "2.1") { // TODO: version from build.sbt, name from build.sbt
       get {
         logRequest("nodeinfo21") {
+          import io.circe.generic.auto._
           complete(NodeInfo())
         }
       }
