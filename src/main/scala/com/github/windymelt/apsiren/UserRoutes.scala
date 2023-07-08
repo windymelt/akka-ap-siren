@@ -51,95 +51,135 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
   val userRoutes: Route =
     path("actor") {
       logRequestResult(("actor", Logging.InfoLevel)) {
-        get { // HARDCODING
-          complete(activity(s"""{
-	"@context": [
-		"https://www.w3.org/ns/activitystreams",
-		"https://w3id.org/security/v1"
-	],
+        get {
+          complete {
+            import io.circe.syntax._
 
-	"id": "https://siren.capslock.dev/actor",
-	"type": "Person",
-	"preferredUsername": "siren",
-	"inbox": "https://siren.capslock.dev/inbox",
-	"outbox": "https://siren.capslock.dev/outbox",
+            val actor = model.Actor(
+              id = "https://siren.capslock.dev/actor",
+              `type` = "Person",
+              preferredUserName = "siren",
+              inbox = "https://siren.capslock.dev/inbox",
+              outbox = "https://siren.capslock.dev/outbox",
+              publicKey = model.ActorPublicKey(
+                id = "https://siren.capslock.dev/actor#main-key",
+                owner = "https://siren.capslock.dev/actor",
+                publicKeyPem = pubkey.replaceAll(lf, raw"\\n")
+              )
+            )
 
-	"publicKey": {
-		"id": "https://siren.capslock.dev/actor#main-key",
-		"owner": "https://siren.capslock.dev/actor",
-		"publicKeyPem": "${pubkey.replaceAll(lf, raw"\\n")}"
-	}
-}
-"""))
+            val bytes = actor.asJson.noSpaces.getBytes()
+
+            val Right(activity) =
+              ContentType.parse("application/activity+json; charset=utf-8")
+
+            HttpResponse(entity =
+              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
+            )
+          }
         }
       }
     } ~ path("inbox") {
-      get { // HARDCODING
+      get {
         logRequestResult(("inbox", Logging.InfoLevel)) {
-          complete(activity("""{
-  "@context": "https://www.w3.org/ns/activitystreams",
-  "summary": "inbox of siren",
-  "type": "OrderedCollection",
-  "totalItems": 0,
-  "orderedItems": [
-  ]
-}"""))
+          import io.circe.syntax._
+
+          complete {
+            val inbox = model.Inbox(
+              summary = "inbox of siren",
+              totalItems = 0,
+              orderedItems = Seq()
+            )
+
+            val bytes = inbox.asJson.noSpaces.getBytes()
+
+            val Right(activity) =
+              ContentType.parse("application/activity+json; charset=utf-8")
+
+            HttpResponse(entity =
+              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
+            )
+          }
         }
       }
     } ~ path("outbox") {
       get {
         logRequestResult(("outbox", Logging.InfoLevel)) {
-          complete(activity("""{
-  "@context": "https://www.w3.org/ns/activitystreams",
-  "summary": "outbox of siren",
-  "type": "OrderedCollection",
-  "totalItems": 1,
-  "orderedItems": [
-{
-            "@context": "https://www.w3.org/ns/activitystreams",
-            "type": "Create",
-            "id": "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
-            "url": "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
-            "published": "2023-01-16T06:48:29Z",
-            "to": [
-                "http://siren.capslock.dev/followers",
+          complete {
+            import io.circe.syntax._
+
+            val note = model.Note(
+              id = "https://siren.capslock.dev/items/20230116-064829.note.json",
+              url =
+                "https://siren.capslock.dev/items/20230116-064829.note.json",
+              published =
+                "https://siren.capslock.dev/items/20230116-064829.note.json",
+              to = Seq(
+                "https://siren.capslock.dev/followers",
                 "https://www.w3.org/ns/activitystreams#Public"
-            ],
-            "actor": "http://siren.capslock.dev/actor",
-            "object": {
-                "@context": "https://www.w3.org/ns/activitystreams",
-                "type": "Note",
-                "id": "https://siren.capslock.dev/items/20230116-064829.note.json",
-                "url": "https://siren.capslock.dev/items/20230116-064829.note.json",
-                "published": "2023-01-16T06:48:29Z",
-                "to": [
-                    "https://siren.capslock.dev/followers",
-                    "https://www.w3.org/ns/activitystreams#Public"
-                ],
-                "attributedTo": "https://siren.capslock.dev/actor",
-                "content": "ウゥーーーーーーーーーー"
-            }
-        }
-  ]
-}"""))
+              ),
+              attributedTo = "https://siren.capslock.dev/actor",
+              content = "ウゥーーーーーーーーーー"
+            )
+            val items = Seq(
+              model.Create(
+                id =
+                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
+                url =
+                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
+                published = "2023-01-16T06:48:29Z",
+                to = Seq(
+                  "http://siren.capslock.dev/followers",
+                  "https://www.w3.org/ns/activitystreams#Public"
+                ),
+                actor = "http://siren.capslock.dev/actor",
+                `object` = note
+              )
+            )
+            val outbox = model.Outbox(
+              summary = "outbox of siren",
+              totalItems = 1,
+              orderedItems = items
+            )
+
+            val bytes = outbox.asJson.noSpaces.getBytes()
+
+            val Right(activity) =
+              ContentType.parse("application/activity+json; charset=utf-8")
+
+            HttpResponse(entity =
+              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
+            )
+          }
         }
       }
     } ~ path("items" / "20230116-064829.note.json") {
       get {
         logRequestResult(("item", Logging.InfoLevel)) {
-          complete(activity("""{
-                "@context": "https://www.w3.org/ns/activitystreams",
-                "type": "Note",
-                "id": "https://siren.capslock.dev/items/20230116-064829.note.json",
-                "url": "https://siren.capslock.dev/items/20230116-064829.note.json",
-                "published": "2023-01-16T06:48:29Z",
-                "to": [
-                    "https://siren.capslock.dev/followers",
-                    "https://www.w3.org/ns/activitystreams#Public"
-                ],
-                "attributedTo": "https://siren.capslock.dev/actor",
-                "content": "ウゥーーーーーーーーーー"
-            }"""))
+          complete {
+            import io.circe.syntax._
+            val note = model.Note(
+              id = "https://siren.capslock.dev/items/20230116-064829.note.json",
+              url =
+                "https://siren.capslock.dev/items/20230116-064829.note.json",
+              published =
+                "https://siren.capslock.dev/items/20230116-064829.note.json",
+              to = Seq(
+                "https://siren.capslock.dev/followers",
+                "https://www.w3.org/ns/activitystreams#Public"
+              ),
+              attributedTo = "https://siren.capslock.dev/actor",
+              content = "ウゥーーーーーーーーーー"
+            )
+            val bytes = note.asJson.noSpaces.getBytes()
+
+            val Right(activity) =
+              ContentType.parse("application/activity+json; charset=utf-8")
+
+            HttpResponse(entity =
+              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
+            )
+          }
         }
       }
     } ~ pathPrefix(".well-known") {
