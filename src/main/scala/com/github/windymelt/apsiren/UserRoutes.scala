@@ -121,7 +121,31 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
               attributedTo = "https://siren.capslock.dev/actor",
               content = "ウゥーーーーーーーーーー"
             )
+            val note2 = model.Note(
+              id = "https://siren.capslock.dev/items/20230708.note.json",
+              url = "https://siren.capslock.dev/items/20230708.note.json",
+              published = "https://siren.capslock.dev/items/20230708.note.json",
+              to = Seq(
+                "https://siren.capslock.dev/followers",
+                "https://www.w3.org/ns/activitystreams#Public"
+              ),
+              attributedTo = "https://siren.capslock.dev/actor",
+              content = "リファクタしました"
+            )
             val items = Seq(
+              model.Create(
+                id =
+                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
+                url =
+                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
+                published = "2023-07-08T18:17:00+09:00",
+                to = Seq(
+                  "http://siren.capslock.dev/followers",
+                  "https://www.w3.org/ns/activitystreams#Public"
+                ),
+                actor = "http://siren.capslock.dev/actor",
+                `object` = note2
+              ),
               model.Create(
                 id =
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
@@ -138,50 +162,63 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
             )
             val outbox = model.Outbox(
               summary = "outbox of siren",
-              totalItems = 1,
+              totalItems = 2,
               orderedItems = items
             )
 
-            val bytes = outbox.asJson.noSpaces.getBytes()
-
-            val Right(activity) =
-              ContentType.parse("application/activity+json; charset=utf-8")
-
-            HttpResponse(entity =
-              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
-            )
+            HttpResponse(entity = activity(outbox))
           }
         }
       }
-    } ~ path("items" / "20230116-064829.note.json") {
-      get {
-        logRequestResult(("item", Logging.InfoLevel)) {
-          complete {
-            import io.circe.syntax._
-            val note = model.Note(
-              id = "https://siren.capslock.dev/items/20230116-064829.note.json",
-              url =
-                "https://siren.capslock.dev/items/20230116-064829.note.json",
-              published =
-                "https://siren.capslock.dev/items/20230116-064829.note.json",
-              to = Seq(
-                "https://siren.capslock.dev/followers",
-                "https://www.w3.org/ns/activitystreams#Public"
-              ),
-              attributedTo = "https://siren.capslock.dev/actor",
-              content = "ウゥーーーーーーーーーー"
-            )
-            val bytes = note.asJson.noSpaces.getBytes()
+    } ~ pathPrefix("items") {
+      concat(
+        path("20230116-064829.note.json") {
+          get {
+            logRequestResult(("item", Logging.InfoLevel)) {
+              complete {
+                import io.circe.syntax._
+                val note = model.Note(
+                  id =
+                    "https://siren.capslock.dev/items/20230116-064829.note.json",
+                  url =
+                    "https://siren.capslock.dev/items/20230116-064829.note.json",
+                  published =
+                    "https://siren.capslock.dev/items/20230116-064829.note.json",
+                  to = Seq(
+                    "https://siren.capslock.dev/followers",
+                    "https://www.w3.org/ns/activitystreams#Public"
+                  ),
+                  attributedTo = "https://siren.capslock.dev/actor",
+                  content = "ウゥーーーーーーーーーー"
+                )
 
-            val Right(activity) =
-              ContentType.parse("application/activity+json; charset=utf-8")
+                HttpResponse(entity = activity(note))
+              }
+            }
+          }
+        },
+        path("20230708.note.json") {
+          get {
+            complete {
+              import io.circe.syntax._
+              val note = model.Note(
+                id = "https://siren.capslock.dev/items/20230708.note.json",
+                url = "https://siren.capslock.dev/items/20230708.note.json",
+                published =
+                  "https://siren.capslock.dev/items/20230708.note.json",
+                to = Seq(
+                  "https://siren.capslock.dev/followers",
+                  "https://www.w3.org/ns/activitystreams#Public"
+                ),
+                attributedTo = "https://siren.capslock.dev/actor",
+                content = "リファクタしました"
+              )
 
-            HttpResponse(entity =
-              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
-            )
+              HttpResponse(entity = activity(note))
+            }
           }
         }
-      }
+      )
     } ~ pathPrefix(".well-known") {
       concat(
         path("webfinger") {
@@ -253,24 +290,19 @@ WwIDAQAB
 -----END PUBLIC KEY-----
 """
 
-  // #all-routes
-  /** set content type as jrd+json. JRD stands for JSON Resource Descriptor.
-    *
-    * @param s
-    * @return
-    */
-  def jrd(s: String) = {
-    val Right(jrd) = ContentType.parse("application/jrd+json; charset=utf-8")
-    HttpEntity(jrd.asInstanceOf[ContentType.WithCharset], s)
-  }
+  def activity[A: io.circe.Encoder](
+      j: A
+  ): akka.http.scaladsl.model.ResponseEntity = {
+    import io.circe.syntax._ // for asJson
 
-  def activity(s: String) = {
+    val bytes = j.asJson.noSpaces.getBytes()
+
     val Right(activity) =
       ContentType.parse("application/activity+json; charset=utf-8")
-    HttpEntity(activity.asInstanceOf[ContentType.WithCharset], s)
-  }
 
-  def json(s: String) = {
-    HttpEntity(ContentTypes.`application/json`, s)
+    HttpEntity(
+      activity.asInstanceOf[ContentType.WithCharset],
+      bytes
+    )
   }
 }
