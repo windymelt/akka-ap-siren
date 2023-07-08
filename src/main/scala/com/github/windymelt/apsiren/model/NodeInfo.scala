@@ -1,4 +1,4 @@
-package com.github.windymelt.apsiren
+package com.github.windymelt.apsiren.model
 
 case class NodeInfo(
     openRegistrations: Boolean = false,
