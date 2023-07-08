@@ -158,16 +158,20 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
                     val Right(jrd) =
                       ContentType.parse("application/jrd+json; charset=utf-8")
                     val wf =
-                      Webfinger(
-                        subject = r,
-                        links = Seq(
-                          Webfinger.WebfingerLink(
-                            rel = "self",
-                            `type` = "application/activity+json",
-                            href = "https://siren.capslock.dev/actor"
+                      model
+                        .Webfinger(
+                          subject = r,
+                          links = Seq(
+                            model.Webfinger.WebfingerLink(
+                              rel = "self",
+                              `type` = "application/activity+json",
+                              href = "https://siren.capslock.dev/actor"
+                            )
                           )
                         )
-                      ).asJson.noSpaces.getBytes()
+                        .asJson
+                        .noSpaces
+                        .getBytes()
                     val res = HttpResponse(entity = HttpEntity(jrd, wf))
                     complete(res)
                   case _ => reject
@@ -191,7 +195,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
       get {
         logRequest("nodeinfo21") {
           import io.circe.generic.auto._
-          complete(NodeInfo())
+          complete(model.NodeInfo())
         }
       }
     }
