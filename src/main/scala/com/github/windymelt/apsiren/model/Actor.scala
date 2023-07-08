@@ -11,7 +11,12 @@ case class Actor(
     publicKey: ActorPublicKey
 )
 
-case class ActorPublicKey(id: String, owner: String, publicKeyPem: String)
+case class ActorPublicKey(
+    id: String,
+    owner: String,
+    publicKeyPem: String,
+    private val `type`: String = "Key"
+)
 
 // JSON Encoder/Decoder
 object Actor {

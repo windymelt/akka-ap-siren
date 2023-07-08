@@ -138,7 +138,7 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
                 url =
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
-                published = "2023-07-08T18:17:00+09:00",
+                published = "2023-07-08T09:17:00Z",
                 to = Seq(
                   "http://siren.capslock.dev/followers",
                   "https://www.w3.org/ns/activitystreams#Public"
@@ -199,22 +199,24 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
         },
         path("20230708.note.json") {
           get {
-            complete {
-              import io.circe.syntax._
-              val note = model.Note(
-                id = "https://siren.capslock.dev/items/20230708.note.json",
-                url = "https://siren.capslock.dev/items/20230708.note.json",
-                published =
-                  "https://siren.capslock.dev/items/20230708.note.json",
-                to = Seq(
-                  "https://siren.capslock.dev/followers",
-                  "https://www.w3.org/ns/activitystreams#Public"
-                ),
-                attributedTo = "https://siren.capslock.dev/actor",
-                content = "リファクタしました"
-              )
+            logRequestResult(("item", Logging.InfoLevel)) {
+              complete {
+                import io.circe.syntax._
+                val note = model.Note(
+                  id = "https://siren.capslock.dev/items/20230708.note.json",
+                  url = "https://siren.capslock.dev/items/20230708.note.json",
+                  published =
+                    "https://siren.capslock.dev/items/20230708.note.json",
+                  to = Seq(
+                    "https://siren.capslock.dev/followers",
+                    "https://www.w3.org/ns/activitystreams#Public"
+                  ),
+                  attributedTo = "https://siren.capslock.dev/actor",
+                  content = "リファクタしました"
+                )
 
-              HttpResponse(entity = activity(note))
+                HttpResponse(entity = activity(note))
+              }
             }
           }
         }
@@ -260,10 +262,17 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
         path("host-meta") {
           logRequestResult(("host-meta", Logging.InfoLevel)) {
             get {
-              complete("""<?xml version="1.0"?>
+              complete {
+                val xml = """<?xml version="1.0"?>
 <XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
     <Link rel="lrdd" type="application/xrd+xml" template="https://siren.capslock.dev/.well-known/webfinger?resource={uri}" />
-</XRD>""")
+</XRD>"""
+                val Right(xmltype) =
+                  ContentType.parse("application/xml; charset=UTF-8")
+                HttpResponse(entity =
+                  HttpEntity(xmltype.asInstanceOf[ContentType.WithCharset], xml)
+                )
+              }
             }
           }
         }
