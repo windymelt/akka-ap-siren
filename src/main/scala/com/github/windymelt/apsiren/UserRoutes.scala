@@ -6,22 +6,31 @@ import akka.actor.typed.scaladsl.AskPattern._
 import akka.event.Logging
 import akka.http.scaladsl.model.ContentType
 import akka.http.scaladsl.model.ContentTypes
+import akka.http.scaladsl.model.DateTime
 import akka.http.scaladsl.model.ErrorInfo
 import akka.http.scaladsl.model.HttpEntity
+import akka.http.scaladsl.model.HttpHeader
+import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.HttpResponse
+import akka.http.scaladsl.model.StatusCode
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.StandardRoute
 import akka.util.Timeout
-import com.github.windymelt.apsiren.UserRegistry._
+import com.github.windymelt.apsiren.FollowersRegistry._
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 
 import scala.concurrent.Future
+import scala.util.Failure
+import scala.util.Success
 
 //#import-json-formats
 //#user-routes-class
-class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
+class UserRoutes(
+    followersRegistry: ActorRef[FollowersRegistry.Command],
+    actorResolverActor: ActorRef[ActorResolver.Command]
+)(implicit
     val system: ActorSystem[_]
 ) {
 
@@ -34,14 +43,10 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
     system.settings.config.getDuration("my-app.routes.ask-timeout")
   )
 
-  def getUsers(): Future[Users] =
-    userRegistry.ask(GetUsers)
-  def getUser(name: String): Future[GetUserResponse] =
-    userRegistry.ask(GetUser(name, _))
-  def createUser(user: User): Future[ActionPerformed] =
-    userRegistry.ask(CreateUser(user, _))
-  def deleteUser(name: String): Future[ActionPerformed] =
-    userRegistry.ask(DeleteUser(name, _))
+  def follow(url: String): Future[Ok.type] =
+    followersRegistry.ask(FollowersRegistry.Add(url, _))
+  def unfollow(url: String): Future[Ok.type] =
+    followersRegistry.ask(FollowersRegistry.Remove(url, _))
 
   val lf = """
 """
@@ -58,13 +63,13 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
             val actor = model.Actor(
               id = "https://siren.capslock.dev/actor",
               `type` = "Person",
-              preferredUserName = "siren",
+              preferredUserName = Some("siren"),
               inbox = "https://siren.capslock.dev/inbox",
               outbox = "https://siren.capslock.dev/outbox",
               publicKey = model.ActorPublicKey(
                 id = "https://siren.capslock.dev/actor#main-key",
                 owner = "https://siren.capslock.dev/actor",
-                publicKeyPem = pubkey.replaceAll(lf, raw"\\n")
+                publicKeyPem = pubkey.replaceAll(lf, "\\\n")
               )
             )
 
@@ -99,6 +104,22 @@ class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit
             HttpResponse(entity =
               HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
             )
+          }
+        }
+      } ~ post {
+        // follow/remove
+        logRequestResult(("inbox-post", Logging.InfoLevel)) {
+          mapRequest(activityAsJson) {
+            entity(as[io.circe.Json]) { j =>
+              j.hcursor.get[Option[String]]("type") match {
+                case Right(Some("Follow")) =>
+                  system.log.info("inbox received Follow")
+                  handleFollow(json = j)
+                case typ =>
+                  system.log.warn(s"unimplemented inbox post type: $typ")
+                  reject // nop
+              }
+            }
           }
         }
       }
@@ -313,5 +334,76 @@ WwIDAQAB
       activity.asInstanceOf[ContentType.WithCharset],
       bytes
     )
+  }
+  def activityRequest[A: io.circe.Encoder](
+      j: A
+  ): akka.http.scaladsl.model.RequestEntity = {
+    import io.circe.syntax._ // for asJson
+
+    val bytes = j.asJson.noSpaces.getBytes()
+
+    val Right(activity) =
+      ContentType.parse("application/activity+json; charset=utf-8")
+
+    HttpEntity(
+      activity.asInstanceOf[ContentType.WithCharset],
+      bytes
+    )
+  }
+  def activityAsJson(req: HttpRequest): HttpRequest = {
+    req.withEntity(req.entity.withContentType(ContentTypes.`application/json`))
+  }
+
+  // handlers
+  // TODO: move
+  def handleFollow(json: io.circe.Json): StandardRoute = {
+    implicit val ec = this.system.executionContext
+    // follow
+    system.log.info("handling follow")
+    val targetActor = json.hcursor.get[Option[String]]("actor")
+    targetActor match {
+      case Right(Some(actor)) =>
+        // resolve INBOX
+        complete {
+          this.actorResolverActor
+            .ask(ActorResolver.ResolveInbox(actor, _))
+            .map {
+              case Right(inbox) =>
+                follow(actor).map { _ =>
+                  import akka.http.scaladsl.Http
+                  import akka.http.scaladsl.model.HttpRequest
+                  // Follow list updated. We have to inform to inbox
+                  val acceptActivity = model.Accept(actor, json)
+                  val acceptEntity = activityRequest(acceptActivity)
+                  val unsignedRequest =
+                    HttpRequest(
+                      uri = inbox.url,
+                      entity = acceptEntity,
+                      headers =
+                        Seq(akka.http.scaladsl.model.headers.Date(DateTime.now))
+                    )
+                  system.log.info(s"target inbox: $inbox")
+                  system.log.info("signing http request")
+                  val signedRequest = HttpSignature.sign(unsignedRequest)
+                  system.log.info("sending accept")
+                  // 投げっぱなし
+                  Http()
+                    .singleRequest(signedRequest)
+                    .onComplete {
+                      case Success(res) =>
+                        res.discardEntityBytes()
+                        system.log.info(s"accept sent: ${res.status}")
+                      case Failure(e) => // nop
+                        system.log.warn(e.toString())
+                    }
+                }
+                HttpResponse(entity = HttpEntity("ok"))
+              case Left(e) =>
+                system.log.warn(s"failed to resolve inbox: $e")
+                HttpResponse(status = StatusCodes.InternalServerError)
+            }
+        }
+      case _ => reject // nop
+    }
   }
 }

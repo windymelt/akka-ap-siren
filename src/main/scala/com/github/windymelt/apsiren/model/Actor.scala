@@ -4,7 +4,7 @@ package com.github.windymelt.apsiren.model
   */
 case class Actor(
     id: String,
-    preferredUserName: String,
+    preferredUserName: Option[String],
     `type`: String,
     inbox: String,
     outbox: String,
@@ -14,8 +14,8 @@ case class Actor(
 case class ActorPublicKey(
     id: String,
     owner: String,
-    publicKeyPem: String,
-    private val `type`: String = "Key"
+    publicKeyPem: String
+    // private val `type`: String = "Key"
 )
 
 // JSON Encoder/Decoder
@@ -37,4 +37,6 @@ object Actor {
       )
       j.deepMerge(context)
   }
+  implicit val ActorPublicKeyDecoder: Decoder[ActorPublicKey] = deriveDecoder
+  implicit val ActorDecoder: Decoder[Actor] = deriveDecoder
 }
