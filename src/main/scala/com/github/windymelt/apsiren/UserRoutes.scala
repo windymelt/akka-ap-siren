@@ -22,6 +22,7 @@ import com.github.windymelt.apsiren.FollowersRegistry._
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 
 import scala.concurrent.Future
+import scala.concurrent.duration.FiniteDuration
 import scala.util.Failure
 import scala.util.Success
 
@@ -115,6 +116,9 @@ class UserRoutes(
                 case Right(Some("Follow")) =>
                   system.log.info("inbox received Follow")
                   handleFollow(json = j)
+                case Right(Some("Undo")) =>
+                  // TODO: Implement correctly
+                  complete("ok")
                 case typ =>
                   system.log.warn(s"unimplemented inbox post type: $typ")
                   reject // nop
@@ -340,6 +344,7 @@ WwIDAQAB
   ): akka.http.scaladsl.model.RequestEntity = {
     import io.circe.syntax._ // for asJson
 
+    println(j.asJson.spaces2)
     val bytes = j.asJson.noSpaces.getBytes()
 
     val Right(activity) =
@@ -359,8 +364,8 @@ WwIDAQAB
   def handleFollow(json: io.circe.Json): StandardRoute = {
     implicit val ec = this.system.executionContext
     // follow
-    system.log.info("handling follow")
     val targetActor = json.hcursor.get[Option[String]]("actor")
+    system.log.info(s"handling follow: $targetActor")
     targetActor match {
       case Right(Some(actor)) =>
         // resolve INBOX
@@ -373,26 +378,42 @@ WwIDAQAB
                   import akka.http.scaladsl.Http
                   import akka.http.scaladsl.model.HttpRequest
                   // Follow list updated. We have to inform to inbox
-                  val acceptActivity = model.Accept(actor, json)
+                  val acceptActivity =
+                    model.Accept(
+                      "https://siren.capslock.dev/accept/12345", // TODO: FIXME
+                      "https://siren.capslock.dev/actor",
+                      json
+                    )
                   val acceptEntity = activityRequest(acceptActivity)
                   val unsignedRequest =
                     HttpRequest(
+                      method = akka.http.scaladsl.model.HttpMethods.POST,
                       uri = inbox.url,
                       entity = acceptEntity,
-                      headers =
-                        Seq(akka.http.scaladsl.model.headers.Date(DateTime.now))
+                      headers = Seq(
+                        akka.http.scaladsl.model.headers.Date(DateTime.now),
+                        akka.http.scaladsl.model.headers
+                          .Host("siren.capslock.dev")
+                      )
                     )
                   system.log.info(s"target inbox: $inbox")
                   system.log.info("signing http request")
-                  val signedRequest = HttpSignature.sign(unsignedRequest)
+                  val signedRequest =
+                    HttpSignature.sign(unsignedRequest)(system)
                   system.log.info("sending accept")
                   // 投げっぱなし
+                  system.log.info(signedRequest.toString)
                   Http()
                     .singleRequest(signedRequest)
                     .onComplete {
                       case Success(res) =>
-                        res.discardEntityBytes()
                         system.log.info(s"accept sent: ${res.status}")
+                        res.entity
+                          .toStrict(FiniteDuration(3, "seconds"))
+                          .foreach(ent =>
+                            system.log
+                              .info(new String(ent.data.toArrayUnsafe().clone))
+                          )
                       case Failure(e) => // nop
                         system.log.warn(e.toString())
                     }

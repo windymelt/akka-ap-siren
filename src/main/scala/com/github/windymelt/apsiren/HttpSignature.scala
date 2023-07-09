@@ -1,5 +1,6 @@
 package com.github.windymelt.apsiren
 
+import akka.actor.typed.ActorSystem
 import akka.http.scaladsl.model.HttpHeader
 import akka.http.scaladsl.model.HttpRequest
 import org.tomitribe.auth.signatures.Algorithm
@@ -11,37 +12,88 @@ import org.tomitribe.auth.signatures.SigningAlgorithm
 import java.io.InputStream
 import java.io.StringBufferInputStream
 import java.security.Key
+import java.security.MessageDigest
 import java.security.PrivateKey
 import javax.crypto.spec.SecretKeySpec
+import scala.concurrent.Await
+import scala.concurrent.duration.FiniteDuration
 import scala.io.Source
 
 object HttpSignature {
   val signAlgo = SigningAlgorithm.RSA_SHA256
   val algo = Algorithm.RSA_SHA256
-  val signature: Signature =
+  val keyId = "https://siren.capslock.dev/actor#main-key"
+  val signature: Signature = new Signature(
+    keyId,
+    signAlgo,
+    algo,
+    null,
+    null,
+    java.util.List
+      .of("(request-target)", "host", "date", "content-type")
+  )
+  val postSignature: Signature =
     new Signature(
-      "key-alias",
-      signAlgo.getAlgorithmName(),
-      algo.toString(),
+      keyId,
+      signAlgo,
+      algo,
       null,
-      java.util.List.of()
-    ); // (1)
+      null,
+      java.util.List
+        .of(
+          "(request-target)",
+          "host",
+          "date",
+          "content-digest",
+          "content-type"
+        )
+    );
   val keyIS = new StringBufferInputStream(
     Source.fromFile("server.key").getLines().mkString("\n")
   )
   val key = PEM.readPrivateKey(keyIS)
-  val signer: Signer = new Signer(key, signature); // (3)
-  def sign(req: HttpRequest): HttpRequest = {
+  def sign(
+      req: HttpRequest
+  )(implicit ctx: ActorSystem[Nothing]): HttpRequest = {
+    var mutableReq = req
     val map = new java.util.HashMap[String, String]()
-    for (h <- req.headers) {
+
+    val signer: Signer = new Signer(
+      key,
+      req.method match {
+        case akka.http.scaladsl.model.HttpMethods.POST => postSignature
+        case _                                         => signature
+      }
+    )
+    if (req.method == akka.http.scaladsl.model.HttpMethods.POST) {
+      val md = MessageDigest.getInstance("SHA-256")
+      val entity = Await.result(
+        req.entity.toStrict(FiniteDuration(3, "seconds")),
+        FiniteDuration(3, "seconds")
+      )
+      val digest = md.digest(entity.data.toArrayUnsafe())
+      val b64enc = java.util.Base64.getEncoder()
+      val b64Str = "SHA-256=" + b64enc.encodeToString(digest)
+      val akka.http.scaladsl.model.HttpHeader.ParsingResult
+        .Ok(digestHeader, _) =
+        akka.http.scaladsl.model.HttpHeader.parse("Content-Digest", b64Str)
+      mutableReq = mutableReq.withHeaders(
+        mutableReq.headers ++ Seq(digestHeader)
+      )
+    }
+    for (h <- mutableReq.headers) {
       map.put(h.name(), h.value())
     }
-    val signed = signer.sign(req.method.value, req.uri.toString(), map)
+    map.put("Content-Type", mutableReq.entity.contentType.value)
+    val signed =
+      signer.sign(mutableReq.method.value, mutableReq.uri.toString(), map)
     val HttpHeader.ParsingResult.Ok(header, _) =
       HttpHeader.parse(
         "Signature",
-        signed.toString().drop(10 /* drop "Signature " */ )
+        signed.toParamString()
       )
-    req.addHeader(header)
+    mutableReq = mutableReq.withHeaders(header, mutableReq.headers: _*)
+
+    mutableReq
   }
 }

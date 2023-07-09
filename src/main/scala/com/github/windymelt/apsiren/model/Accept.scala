@@ -1,6 +1,7 @@
 package com.github.windymelt.apsiren.model
 
 case class Accept(
+    id: String,
     actor: String,
     `object`: io.circe.Json /* 本当はちゃんとしたオブジェクトにしたほうがよさそうだが、やることはオウム返しなのでこれでいい */
 )
