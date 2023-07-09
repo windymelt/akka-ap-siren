@@ -6,7 +6,6 @@ import akka.actor.typed.scaladsl.AskPattern._
 import akka.event.Logging
 import akka.http.scaladsl.model.ContentType
 import akka.http.scaladsl.model.ContentTypes
-import akka.http.scaladsl.model.DateTime
 import akka.http.scaladsl.model.ErrorInfo
 import akka.http.scaladsl.model.HttpCharsets
 import akka.http.scaladsl.model.HttpEntity
@@ -17,10 +16,12 @@ import akka.http.scaladsl.model.MediaRange
 import akka.http.scaladsl.model.MediaType
 import akka.http.scaladsl.model.StatusCode
 import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model.{DateTime => AkkaDateTime}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.StandardRoute
 import akka.util.Timeout
+import com.github.nscala_time.time.Imports._
 import com.github.windymelt.apsiren.FollowersRegistry._
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 
@@ -51,6 +52,29 @@ class UserRoutes(
     followersRegistry.ask(FollowersRegistry.Add(url, _))
   def unfollow(url: String): Future[Ok.type] =
     followersRegistry.ask(FollowersRegistry.Remove(url, _))
+
+  val note = model.Note(
+    id = "https://siren.capslock.dev/items/20230116-064829.note.json",
+    url = "https://siren.capslock.dev/items/20230116-064829.note.json",
+    published = DateTime.parse("2023-01-16T06:48:29Z"),
+    to = Seq(
+      "https://siren.capslock.dev/followers",
+      "https://www.w3.org/ns/activitystreams#Public"
+    ),
+    attributedTo = "https://siren.capslock.dev/actor",
+    content = "ウゥーーーーーーーーーー"
+  )
+  val note2 = model.Note(
+    id = "https://siren.capslock.dev/items/20230708.note.json",
+    url = "https://siren.capslock.dev/items/20230708.note.json",
+    published = DateTime.parse("2023-07-08T09:17:00Z"),
+    to = Seq(
+      "https://siren.capslock.dev/followers",
+      "https://www.w3.org/ns/activitystreams#Public"
+    ),
+    attributedTo = "https://siren.capslock.dev/actor",
+    content = "リファクタしました"
+  )
 
   val lf = """
 """
@@ -124,36 +148,13 @@ class UserRoutes(
           complete {
             import io.circe.syntax._
 
-            val note = model.Note(
-              id = "https://siren.capslock.dev/items/20230116-064829.note.json",
-              url =
-                "https://siren.capslock.dev/items/20230116-064829.note.json",
-              published = "2023-01-16T06:48:29Z",
-              to = Seq(
-                "https://siren.capslock.dev/followers",
-                "https://www.w3.org/ns/activitystreams#Public"
-              ),
-              attributedTo = "https://siren.capslock.dev/actor",
-              content = "ウゥーーーーーーーーーー"
-            )
-            val note2 = model.Note(
-              id = "https://siren.capslock.dev/items/20230708.note.json",
-              url = "https://siren.capslock.dev/items/20230708.note.json",
-              published = "2023-07-08T09:17:00Z",
-              to = Seq(
-                "https://siren.capslock.dev/followers",
-                "https://www.w3.org/ns/activitystreams#Public"
-              ),
-              attributedTo = "https://siren.capslock.dev/actor",
-              content = "リファクタしました"
-            )
             val items = Seq(
               model.Create(
                 id =
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
                 url =
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
-                published = "2023-07-08T09:17:00Z",
+                published = DateTime.parse("2023-07-08T09:17:00Z"),
                 to = Seq(
                   "https://siren.capslock.dev/followers",
                   "https://www.w3.org/ns/activitystreams#Public"
@@ -166,7 +167,7 @@ class UserRoutes(
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
                 url =
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
-                published = "2023-01-16T06:48:29Z",
+                published = DateTime.parse("2023-01-16T06:48:29Z"),
                 to = Seq(
                   "https://siren.capslock.dev/followers",
                   "https://www.w3.org/ns/activitystreams#Public"
@@ -191,21 +192,6 @@ class UserRoutes(
           get {
             logRequestResult(("item", Logging.InfoLevel)) {
               complete {
-                import io.circe.syntax._
-                val note = model.Note(
-                  id =
-                    "https://siren.capslock.dev/items/20230116-064829.note.json",
-                  url =
-                    "https://siren.capslock.dev/items/20230116-064829.note.json",
-                  published = "2023-01-16T06:48:29Z",
-                  to = Seq(
-                    "https://siren.capslock.dev/followers",
-                    "https://www.w3.org/ns/activitystreams#Public"
-                  ),
-                  attributedTo = "https://siren.capslock.dev/actor",
-                  content = "ウゥーーーーーーーーーー"
-                )
-
                 HttpResponse(entity = activity(note))
               }
             }
@@ -215,20 +201,7 @@ class UserRoutes(
           get {
             logRequestResult(("item", Logging.InfoLevel)) {
               complete {
-                import io.circe.syntax._
-                val note = model.Note(
-                  id = "https://siren.capslock.dev/items/20230708.note.json",
-                  url = "https://siren.capslock.dev/items/20230708.note.json",
-                  published = "2023-07-08T09:17:00Z",
-                  to = Seq(
-                    "https://siren.capslock.dev/followers",
-                    "https://www.w3.org/ns/activitystreams#Public"
-                  ),
-                  attributedTo = "https://siren.capslock.dev/actor",
-                  content = "リファクタしました"
-                )
-
-                HttpResponse(entity = activity(note))
+                HttpResponse(entity = activity(note2))
               }
             }
           }
@@ -379,7 +352,7 @@ WwIDAQAB
                       headers = Seq(
                         akka.http.scaladsl.model.headers
                           .Accept(MediaRange(http.common.activityCT.mediaType)),
-                        akka.http.scaladsl.model.headers.Date(DateTime.now)
+                        akka.http.scaladsl.model.headers.Date(AkkaDateTime.now)
                       )
                     )
                   system.log.info(s"target inbox: $followerInbox")

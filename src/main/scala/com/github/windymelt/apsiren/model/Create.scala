@@ -1,11 +1,16 @@
-package com.github.windymelt.apsiren.model
+package com.github.windymelt.apsiren
+package model
+
+import com.github.nscala_time.time.Imports._
+
+import model.DateTime._
 
 /** Create activity defined in ActivityStreams.
   */
 case class Create(
     id: String,
     url: String,
-    published: String /*TODDO: use DateTime*/,
+    published: DateTime,
     to: Seq[String],
     actor: String,
     `object`: Note // TODO: generalize

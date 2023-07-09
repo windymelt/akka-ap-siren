@@ -24,6 +24,7 @@ lazy val root = (project in file(".")).settings(
     "de.heikoseeberger" %% "akka-http-circe" % "1.39.2",
     "ch.qos.logback" % "logback-classic" % "1.2.11",
     "org.tomitribe" % "tomitribe-http-signatures" % "1.8",
+    "com.github.nscala-time" %% "nscala-time" % "2.32.0",
     "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
     "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
     "org.scalatest" %% "scalatest" % "3.2.9" % Test

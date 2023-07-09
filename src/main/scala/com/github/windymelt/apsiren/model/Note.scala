@@ -1,4 +1,8 @@
-package com.github.windymelt.apsiren.model
+package com.github.windymelt.apsiren
+package model
+
+import com.github.nscala_time.time.Imports._
+import model.DateTime._
 
 /** Note object defined in ActivityStreams.
   *
@@ -12,7 +16,7 @@ package com.github.windymelt.apsiren.model
 case class Note(
     id: String,
     url: String,
-    published: String /*TODO: use DateTime via nscala-time*/,
+    published: DateTime,
     to: Seq[String],
     attributedTo: String,
     content: String
