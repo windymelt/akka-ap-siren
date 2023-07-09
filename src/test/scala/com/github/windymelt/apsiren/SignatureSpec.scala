@@ -13,8 +13,8 @@ class SignatureSpec extends AnyWordSpec with Matchers {
     "sign" in {
       val HttpHeader.ParsingResult.Ok(dateHeader, _) =
         HttpHeader.parse("Date", "Thu, 05 Jan 2012 21:31:40 GMT")
-      val hostHeader =
-        akka.http.scaladsl.model.headers.Host("siren.capslock.dev")
+      // val hostHeader =
+      //   akka.http.scaladsl.model.headers.Host("example.com")
 
       implicit val system =
         ActorSystem[Nothing](Behaviors.empty, "HelloAkkaHttpServer")
@@ -22,7 +22,7 @@ class SignatureSpec extends AnyWordSpec with Matchers {
         HttpRequest(
           method = akka.http.scaladsl.model.HttpMethods.POST,
           uri = "https://example.com/",
-          headers = Seq(dateHeader, hostHeader),
+          headers = Seq(dateHeader),
           entity = HttpEntity(
             akka.http.scaladsl.model.ContentTypes.`application/json`,
             "{}"
@@ -30,7 +30,7 @@ class SignatureSpec extends AnyWordSpec with Matchers {
         )
       )
       val signatureHeader = sign.getHeader("Signature").get.value()
-      signatureHeader shouldEqual """keyId="https://siren.capslock.dev/actor#main-key",algorithm="rsa-sha256",headers="(request-target) host date content-digest content-type",signature="csODAm6spYa1cH/mSAiI3LVAtScVSYfv8gJesrA+eACjnbvWqTu0TEufwcGmg2uC7iYbwW3WnQgRmy5vVnoTbacY8y/9ulNH1E6Ip/YjPCMPqKnrzC5aqXfF6cSuQfRBRlzKbEvGFE9TetgX2xS2LlBanGmlQ3MRrSXHSzBnWYfjE/mC2t1qweFSLQQKAK80378O2zt296akgBp+v8QNwoRoxdXSkEaBRHhX5FKTV1bM1iQZ9czckRtSdugg5cBPIrZUAVpdy+irid+Nj/sjO/tdvFI2KyObBZaR/IimwuesiOMFAbAQXqO6qvR2ZRFK1gCTChpR9VjGkF8yuEUwJw==""""
+      signatureHeader shouldEqual """keyId="https://siren.capslock.dev/actor#main-key",algorithm="rsa-sha256",headers="(request-target) host date digest",signature="GS/fUJNH9/fFdhUTtmknQA2C8DD8P9IETKAGncloDteqtpVAEqXrHDqObjx2GZQ7b2TBl/cH7ubsuimbY2/QjpnUQdjOpoB5zqquaekOgAJsJSxvCnFqsXbuPllhddcJcPZApBrIurLiYvCLPl9puOEVbcq+nsQJ5NYGA3W0I96jRDdGj3pdN2FtOCvppO9ZqkouAZ5o8XgpFdFbj3ue1FDnrY8kvS/2iDtyFREstCgPW9J6fDvrxmchOOv/WmBl8WUscJdpLgBBwdb+aRiGss6A/eFFLJJygPC2fELRrHKZ1fP+Qu0G2qI1oAgtDXzkzdRun/beih7KtnC+/MMz2A==""""
     }
   }
 }

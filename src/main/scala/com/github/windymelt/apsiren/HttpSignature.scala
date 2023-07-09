@@ -30,7 +30,11 @@ object HttpSignature {
     null,
     null,
     java.util.List
-      .of("(request-target)", "host", "date", "content-type")
+      .of(
+        "(request-target)",
+        "host",
+        "date" // , "content-type"
+      )
   )
   val postSignature: Signature =
     new Signature(
@@ -44,8 +48,8 @@ object HttpSignature {
           "(request-target)",
           "host",
           "date",
-          "content-digest",
-          "content-type"
+          "digest"
+          // "content-type"
         )
     );
   val keyIS = new StringBufferInputStream(
@@ -73,10 +77,11 @@ object HttpSignature {
       )
       val digest = md.digest(entity.data.toArrayUnsafe())
       val b64enc = java.util.Base64.getEncoder()
-      val b64Str = "SHA-256=" + b64enc.encodeToString(digest)
+      val b64Str = "sha-256=" + b64enc.encodeToString(digest)
+      // Digestはdeprecatedらしいがどのインスタンスもこれを利用している・・・。
       val akka.http.scaladsl.model.HttpHeader.ParsingResult
         .Ok(digestHeader, _) =
-        akka.http.scaladsl.model.HttpHeader.parse("Content-Digest", b64Str)
+        akka.http.scaladsl.model.HttpHeader.parse("Digest", b64Str)
       mutableReq = mutableReq.withHeaders(
         mutableReq.headers ++ Seq(digestHeader)
       )
@@ -84,7 +89,8 @@ object HttpSignature {
     for (h <- mutableReq.headers) {
       map.put(h.name(), h.value())
     }
-    map.put("Content-Type", mutableReq.entity.contentType.value)
+    // map.put("Content-Type", mutableReq.entity.contentType.value)
+    map.put("Host", mutableReq.uri.authority.host.address()) // TODO: fill port
     val signed =
       signer.sign(mutableReq.method.value, mutableReq.uri.toString(), map)
     val HttpHeader.ParsingResult.Ok(header, _) =

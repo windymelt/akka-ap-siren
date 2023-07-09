@@ -7,6 +7,7 @@ case class Actor(
     preferredUserName: Option[String],
     `type`: String,
     inbox: String,
+    sharedInbox: Option[String], // optional but de-facto
     outbox: String,
     publicKey: ActorPublicKey
 )
@@ -36,6 +37,7 @@ object Actor {
         )
       )
       j.deepMerge(context)
+        .deepMerge(MisskeySpecific.discoverableField)
   }
   implicit val ActorPublicKeyDecoder: Decoder[ActorPublicKey] = deriveDecoder
   implicit val ActorDecoder: Decoder[Actor] = deriveDecoder

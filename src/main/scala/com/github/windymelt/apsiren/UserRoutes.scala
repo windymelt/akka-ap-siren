@@ -8,10 +8,13 @@ import akka.http.scaladsl.model.ContentType
 import akka.http.scaladsl.model.ContentTypes
 import akka.http.scaladsl.model.DateTime
 import akka.http.scaladsl.model.ErrorInfo
+import akka.http.scaladsl.model.HttpCharsets
 import akka.http.scaladsl.model.HttpEntity
 import akka.http.scaladsl.model.HttpHeader
 import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.HttpResponse
+import akka.http.scaladsl.model.MediaRange
+import akka.http.scaladsl.model.MediaType
 import akka.http.scaladsl.model.StatusCode
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
@@ -66,6 +69,8 @@ class UserRoutes(
               `type` = "Person",
               preferredUserName = Some("siren"),
               inbox = "https://siren.capslock.dev/inbox",
+              // Use inbox as sharedInbox because only one actor is active
+              sharedInbox = Some("https://siren.capslock.dev/inbox"),
               outbox = "https://siren.capslock.dev/outbox",
               publicKey = model.ActorPublicKey(
                 id = "https://siren.capslock.dev/actor#main-key",
@@ -74,14 +79,7 @@ class UserRoutes(
               )
             )
 
-            val bytes = actor.asJson.noSpaces.getBytes()
-
-            val Right(activity) =
-              ContentType.parse("application/activity+json; charset=utf-8")
-
-            HttpResponse(entity =
-              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
-            )
+            HttpResponse(entity = activity(actor))
           }
         }
       }
@@ -97,14 +95,7 @@ class UserRoutes(
               orderedItems = Seq()
             )
 
-            val bytes = inbox.asJson.noSpaces.getBytes()
-
-            val Right(activity) =
-              ContentType.parse("application/activity+json; charset=utf-8")
-
-            HttpResponse(entity =
-              HttpEntity(activity.asInstanceOf[ContentType.WithCharset], bytes)
-            )
+            HttpResponse(entity = activity(inbox))
           }
         }
       } ~ post {
@@ -165,10 +156,10 @@ class UserRoutes(
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
                 published = "2023-07-08T09:17:00Z",
                 to = Seq(
-                  "http://siren.capslock.dev/followers",
+                  "https://siren.capslock.dev/followers",
                   "https://www.w3.org/ns/activitystreams#Public"
                 ),
-                actor = "http://siren.capslock.dev/actor",
+                actor = "https://siren.capslock.dev/actor",
                 `object` = note2
               ),
               model.Create(
@@ -178,10 +169,10 @@ class UserRoutes(
                   "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
                 published = "2023-01-16T06:48:29Z",
                 to = Seq(
-                  "http://siren.capslock.dev/followers",
+                  "https://siren.capslock.dev/followers",
                   "https://www.w3.org/ns/activitystreams#Public"
                 ),
-                actor = "http://siren.capslock.dev/actor",
+                actor = "https://siren.capslock.dev/actor",
                 `object` = note
               )
             )
@@ -278,29 +269,32 @@ class UserRoutes(
                         .getBytes()
                     val res = HttpResponse(entity = HttpEntity(jrd, wf))
                     complete(res)
+                  case "acct:@siren.capslock.dev" =>
+                    // Mastodonがここに何故かアクセスすることがある。404する
+                    complete(HttpResponse(StatusCodes.NotFound))
                   case _ => reject
                 }
               }
             }
           }
-        },
-        path("host-meta") {
-          logRequestResult(("host-meta", Logging.InfoLevel)) {
-            get {
-              complete {
-                val xml = """<?xml version="1.0"?>
-<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
-    <Link rel="lrdd" type="application/xrd+xml" template="https://siren.capslock.dev/.well-known/webfinger?resource={uri}" />
-</XRD>"""
-                val Right(xmltype) =
-                  ContentType.parse("application/xml; charset=UTF-8")
-                HttpResponse(entity =
-                  HttpEntity(xmltype.asInstanceOf[ContentType.WithCharset], xml)
-                )
-              }
-            }
-          }
         }
+//         path("host-meta") {
+//           logRequestResult(("host-meta", Logging.InfoLevel)) {
+//             get {
+//               complete {
+//                 val xml = """<?xml version="1.0"?>
+// <XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
+//     <Link rel="lrdd" type="application/xrd+xml" template="https://siren.capslock.dev/.well-known/webfinger?resource={uri}" />
+// </XRD>"""
+//                 val Right(xmltype) =
+//                   ContentType.parse("application/xml; charset=UTF-8")
+//                 HttpResponse(entity =
+//                   HttpEntity(xmltype.asInstanceOf[ContentType.WithCharset], xml)
+//                 )
+//               }
+//             }
+//           }
+//         }
       )
     } ~ path("nodeinfo" / "2.1") { // TODO: version from build.sbt, name from build.sbt
       get {
@@ -331,11 +325,8 @@ WwIDAQAB
 
     val bytes = j.asJson.noSpaces.getBytes()
 
-    val Right(activity) =
-      ContentType.parse("application/activity+json; charset=utf-8")
-
     HttpEntity(
-      activity.asInstanceOf[ContentType.WithCharset],
+      http.common.activityCT,
       bytes
     )
   }
@@ -344,14 +335,11 @@ WwIDAQAB
   ): akka.http.scaladsl.model.RequestEntity = {
     import io.circe.syntax._ // for asJson
 
-    println(j.asJson.spaces2)
+    println(j.asJson.noSpaces)
     val bytes = j.asJson.noSpaces.getBytes()
 
-    val Right(activity) =
-      ContentType.parse("application/activity+json; charset=utf-8")
-
     HttpEntity(
-      activity.asInstanceOf[ContentType.WithCharset],
+      http.common.activityCT,
       bytes
     )
   }
@@ -364,39 +352,40 @@ WwIDAQAB
   def handleFollow(json: io.circe.Json): StandardRoute = {
     implicit val ec = this.system.executionContext
     // follow
-    val targetActor = json.hcursor.get[Option[String]]("actor")
-    system.log.info(s"handling follow: $targetActor")
-    targetActor match {
-      case Right(Some(actor)) =>
+    val followerActorTry = json.hcursor.get[Option[String]]("actor")
+    // TODO: Validate followee! This endpoint is also sharedInbox.
+    system.log.info(s"handling follow: $followerActorTry")
+    followerActorTry match {
+      case Right(Some(follower)) =>
         // resolve INBOX
         complete {
           this.actorResolverActor
-            .ask(ActorResolver.ResolveInbox(actor, _))
+            .ask(ActorResolver.ResolveInbox(follower, _))
             .map {
-              case Right(inbox) =>
-                follow(actor).map { _ =>
+              case Right(followerInbox) =>
+                follow(follower).map { _ =>
                   import akka.http.scaladsl.Http
                   import akka.http.scaladsl.model.HttpRequest
                   // Follow list updated. We have to inform to inbox
                   val acceptActivity =
                     model.Accept(
-                      "https://siren.capslock.dev/accept/12345", // TODO: FIXME
-                      "https://siren.capslock.dev/actor",
-                      json
+                      id =
+                        "https://siren.capslock.dev/accept/12345", // TODO: FIXME
+                      actor = "https://siren.capslock.dev/actor",
+                      `object` = json
                     )
-                  val acceptEntity = activityRequest(acceptActivity)
                   val unsignedRequest =
                     HttpRequest(
                       method = akka.http.scaladsl.model.HttpMethods.POST,
-                      uri = inbox.url,
-                      entity = acceptEntity,
+                      uri = followerInbox.url,
+                      entity = activityRequest(acceptActivity),
                       headers = Seq(
-                        akka.http.scaladsl.model.headers.Date(DateTime.now),
                         akka.http.scaladsl.model.headers
-                          .Host("siren.capslock.dev")
+                          .Accept(MediaRange(http.common.activityCT.mediaType)),
+                        akka.http.scaladsl.model.headers.Date(DateTime.now)
                       )
                     )
-                  system.log.info(s"target inbox: $inbox")
+                  system.log.info(s"target inbox: $followerInbox")
                   system.log.info("signing http request")
                   val signedRequest =
                     HttpSignature.sign(unsignedRequest)(system)
@@ -418,7 +407,10 @@ WwIDAQAB
                         system.log.warn(e.toString())
                     }
                 }
-                HttpResponse(entity = HttpEntity("ok"))
+                HttpResponse(
+                  status = StatusCodes.Accepted,
+                  entity = HttpEntity.Empty
+                )
               case Left(e) =>
                 system.log.warn(s"failed to resolve inbox: $e")
                 HttpResponse(status = StatusCodes.InternalServerError)
