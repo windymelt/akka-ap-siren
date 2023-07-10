@@ -30,8 +30,6 @@ import scala.concurrent.duration.FiniteDuration
 import scala.util.Failure
 import scala.util.Success
 
-//#import-json-formats
-//#user-routes-class
 class UserRoutes(
     followersRegistry: ActorRef[FollowersRegistry.Command],
     actorResolverActor: ActorRef[ActorResolver.Command]
@@ -39,9 +37,7 @@ class UserRoutes(
     val system: ActorSystem[_]
 ) {
 
-  // #user-routes-class
   import FailFastCirceSupport._
-  // #import-json-formats
 
   // If ask takes more time than this to complete the request is failed
   private implicit val timeout: Timeout = Timeout.create(
@@ -78,9 +74,6 @@ class UserRoutes(
 
   val lf = """
 """
-  // #all-routes
-  // #users-get-post
-  // #users-get-delete
   val userRoutes: Route =
     path("actor") {
       logRequestResult(("actor", Logging.InfoLevel)) {
