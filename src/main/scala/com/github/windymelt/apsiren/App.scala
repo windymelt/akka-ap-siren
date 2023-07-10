@@ -50,7 +50,7 @@ object App {
 
       Behaviors.empty
     }
-    val system = ActorSystem[Nothing](rootBehavior, "HelloAkkaHttpServer")
+    val system = ActorSystem[Nothing](rootBehavior, "SierraPub")
     // #server-bootstrapping
   }
 }
