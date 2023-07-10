@@ -19,7 +19,6 @@ lazy val root = (project in file(".")).settings(
   name := "akka-ap-siren",
   libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
-    "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
     "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
     "de.heikoseeberger" %% "akka-http-circe" % "1.39.2",
