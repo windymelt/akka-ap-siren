@@ -4,7 +4,9 @@ package com.github.windymelt.apsiren.model
   */
 case class Actor(
     id: String,
+    name: Option[String] = None,
     preferredUserName: Option[String],
+    summary: Option[String] = None,
     `type`: String,
     inbox: String,
     sharedInbox: Option[String], // optional but de-facto
