@@ -1,3 +1,4 @@
+lazy val ScalaVersion = "2.13.11"
 lazy val akkaHttpVersion = "10.5.2"
 lazy val akkaVersion = "2.8.3"
 lazy val circeVersion = "0.14.1"
@@ -12,7 +13,7 @@ lazy val root = (project in file(".")).settings(
   inThisBuild(
     List(
       organization := "com.github.windymelt",
-      scalaVersion := "2.13.11"
+      scalaVersion := ScalaVersion
     )
   ),
   name := "akka-ap-siren",
