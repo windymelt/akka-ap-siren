@@ -9,7 +9,7 @@ import scala.util.Failure
 import scala.util.Success
 
 //#main-class
-object QuickstartApp {
+object App {
   // #start-http-server
   private def startHttpServer(
       routes: Route
