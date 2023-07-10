@@ -5,9 +5,6 @@ import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 
 final case class Follower(url: String /* TODO: fill fields later */ )
-final case class Followers(
-    users: Seq[Follower]
-) // TODO: use accurate data structure
 
 object FollowersRegistry {
   // actor protocol
