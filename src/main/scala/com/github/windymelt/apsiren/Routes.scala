@@ -30,7 +30,7 @@ import scala.concurrent.duration.FiniteDuration
 import scala.util.Failure
 import scala.util.Success
 
-class UserRoutes(
+class Routes(
     followersRegistry: ActorRef[FollowersRegistry.Command],
     actorResolverActor: ActorRef[ActorResolver.Command]
 )(implicit
