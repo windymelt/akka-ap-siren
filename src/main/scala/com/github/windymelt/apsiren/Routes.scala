@@ -72,39 +72,8 @@ class Routes(
     content = "リファクタしました"
   )
 
-  val lf = """
-"""
   val userRoutes: Route =
-    path("actor") {
-      logRequestResult(("actor", Logging.InfoLevel)) {
-        get {
-          complete {
-            import io.circe.syntax._
-
-            val actor = model.Actor(
-              id = "https://siren.capslock.dev/actor",
-              `type` = "Person",
-              preferredUserName = Some("siren"),
-              name = Some("田舎の昼のサイレンbot"),
-              summary = Some(
-                "<p>田舎の昼のサイレンbotをActivityPubでも実現しようというハイ・テックなこころみです。</p><p>元bot様とは何ら関係がありません。現在作りかけなので動作していません</p>"
-              ),
-              inbox = "https://siren.capslock.dev/inbox",
-              // Use inbox as sharedInbox because only one actor is active
-              sharedInbox = Some("https://siren.capslock.dev/inbox"),
-              outbox = "https://siren.capslock.dev/outbox",
-              publicKey = model.ActorPublicKey(
-                id = "https://siren.capslock.dev/actor#main-key",
-                owner = "https://siren.capslock.dev/actor",
-                publicKeyPem = pubkey.replaceAll(lf, "\\\n")
-              )
-            )
-
-            HttpResponse(entity = activity(actor))
-          }
-        }
-      }
-    } ~ path("inbox") {
+    route.Actor.route ~ path("inbox") {
       get {
         logRequestResult(("inbox", Logging.InfoLevel)) {
           import io.circe.syntax._
@@ -116,13 +85,13 @@ class Routes(
               orderedItems = Seq()
             )
 
-            HttpResponse(entity = activity(inbox))
+            HttpResponse(entity = http.common.activity(inbox))
           }
         }
       } ~ post {
         // follow/remove
         logRequestResult(("inbox-post", Logging.InfoLevel)) {
-          mapRequest(activityAsJson) {
+          mapRequest(http.common.activityAsJson) {
             entity(as[io.circe.Json]) { j =>
               j.hcursor.get[Option[String]]("type") match {
                 case Right(Some("Follow")) =>
@@ -179,7 +148,7 @@ class Routes(
               orderedItems = items
             )
 
-            HttpResponse(entity = activity(outbox))
+            HttpResponse(entity = http.common.activity(outbox))
           }
         }
       }
@@ -189,7 +158,7 @@ class Routes(
           get {
             logRequestResult(("item", Logging.InfoLevel)) {
               complete {
-                HttpResponse(entity = activity(note))
+                HttpResponse(entity = http.common.activity(note))
               }
             }
           }
@@ -198,7 +167,7 @@ class Routes(
           get {
             logRequestResult(("item", Logging.InfoLevel)) {
               complete {
-                HttpResponse(entity = activity(note2))
+                HttpResponse(entity = http.common.activity(note2))
               }
             }
           }
@@ -272,48 +241,6 @@ class Routes(
       }
     }
 
-// openssl genrsa -out server.key 2048
-// openssl rsa -in server.key -pubout
-  val pubkey = """-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAryP6P3P4X1qNJAIyg9Q4
-eAJdzdMBD7oFPqqsyurnWskvCMeljM6sxoohnrVEjD10NZirnyt7X/cpYSc5BMGk
-wIfTWyhTMYbNTXlrV0yFrsBtv39tG5TcEWdX1+NvMn68MsCkLv7h/qsz4rBVxmmf
-c0lpz9KCqv1AI3mSuJYVNEXP59QuoP0jqtxE2e4Man4hp/BU26XBJJ8i/ZshrXtb
-3/3A7K60cYjCboTDwCzD4TYuxgwx0Jgk28zlTYM1NuQNYehpgd5mviUXdFdWatuP
-WSuAjGu0T6RNMWTcUh0cV39+wr1fKtZ9rHPubxXz7eikOGvjbB8UIDjXG5Kh7Xv3
-WwIDAQAB
------END PUBLIC KEY-----
-"""
-
-  def activity[A: io.circe.Encoder](
-      j: A
-  ): akka.http.scaladsl.model.ResponseEntity = {
-    import io.circe.syntax._ // for asJson
-
-    val bytes = j.asJson.noSpaces.getBytes()
-
-    HttpEntity(
-      http.common.activityCT,
-      bytes
-    )
-  }
-  def activityRequest[A: io.circe.Encoder](
-      j: A
-  ): akka.http.scaladsl.model.RequestEntity = {
-    import io.circe.syntax._ // for asJson
-
-    println(j.asJson.noSpaces)
-    val bytes = j.asJson.noSpaces.getBytes()
-
-    HttpEntity(
-      http.common.activityCT,
-      bytes
-    )
-  }
-  def activityAsJson(req: HttpRequest): HttpRequest = {
-    req.withEntity(req.entity.withContentType(ContentTypes.`application/json`))
-  }
-
   // handlers
   // TODO: move
   def handleFollow(json: io.circe.Json): StandardRoute = {
@@ -345,7 +272,7 @@ WwIDAQAB
                     HttpRequest(
                       method = akka.http.scaladsl.model.HttpMethods.POST,
                       uri = followerInbox.url,
-                      entity = activityRequest(acceptActivity),
+                      entity = http.common.activityRequest(acceptActivity),
                       headers = Seq(
                         akka.http.scaladsl.model.headers
                           .Accept(MediaRange(http.common.activityCT.mediaType)),
