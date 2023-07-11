@@ -39,6 +39,9 @@ class Routes(
 
   import FailFastCirceSupport._
 
+  private val domain: String =
+    system.settings.config.getString("sierrapub.domain")
+
   // If ask takes more time than this to complete the request is failed
   private implicit val timeout: Timeout = Timeout.create(
     system.settings.config.getDuration("sierrapub.routes.ask-timeout")
