@@ -16,6 +16,7 @@ import akka.http.scaladsl.model.MediaRange
 import akka.http.scaladsl.model.MediaType
 import akka.http.scaladsl.model.StatusCode
 import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.model.{DateTime => AkkaDateTime}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
@@ -32,7 +33,8 @@ import scala.util.Success
 
 class Routes(
     followersRegistry: ActorRef[FollowersRegistry.Command],
-    actorResolverActor: ActorRef[ActorResolver.Command]
+    actorResolverActor: ActorRef[ActorResolver.Command],
+    notesRegistry: ActorRef[NotesRegistry.Command]
 )(implicit
     val system: ActorSystem[_]
 ) {
@@ -79,46 +81,61 @@ class Routes(
     route.Actor.route ~ path("post") {
       // Post endpoint for local client.
       post {
-        entity(as[model.LocalPost]) { post =>
-          // Acquire UUID
-          val newUuid = UUID.generate()
+        headerValueByName("Authorization") {
+          case s"Bearer $bearer"
+              if bearer == system.settings.config.getString(
+                "sierrapub.post.bearer"
+              ) =>
+            entity(as[model.LocalPost]) { post =>
+              // Acquire UUID
+              val newUuid = UUID.generate()
 
-          val published = DateTime.now()
-          // Transform LocalPost => Note
-          val newNote =
-            model.Note(
-              id = s"$domain/notes/${newUuid.base64Stripped}",
-              url = s"$domain/notes/${newUuid.base64Stripped}",
-              published = published,
-              to = Seq(
-                s"$domain/followers",
-                "https://www.w3.org/ns/activitystreams#Public"
-              ),
-              attributedTo = s"$domain/actor",
-              content = post.content
-            )
+              val published = DateTime.now()
+              // Transform LocalPost => Note
+              val newNote =
+                model.Note(
+                  id = s"$domain/notes/${newUuid.base64Stripped}",
+                  url = s"$domain/notes/${newUuid.base64Stripped}",
+                  published = published,
+                  to = Seq(
+                    s"$domain/followers",
+                    "https://www.w3.org/ns/activitystreams#Public"
+                  ),
+                  attributedTo = s"$domain/actor",
+                  content = post.content
+                )
 
-          // Wrap Note by Activity
-          val activityUuid = UUID.generate()
-          val newActivity = model.Create(
-            id = s"$domain/activity/${activityUuid.base64Stripped}",
-            url = s"$domain/activity/${activityUuid.base64Stripped}",
-            published = published,
-            to = Seq(
-              s"$domain/followers",
-              "https://www.w3.org/ns/activitystreams#Public"
-            ),
-            actor = s"$domain/actor",
-            `object` = newNote
-          )
+              // Wrap Note by Activity
+              val activityUuid = UUID.generate()
+              val newActivity = model.Create(
+                id = s"$domain/activity/${activityUuid.base64Stripped}",
+                url = s"$domain/activity/${activityUuid.base64Stripped}",
+                published = published,
+                to = Seq(
+                  s"$domain/followers",
+                  "https://www.w3.org/ns/activitystreams#Public"
+                ),
+                actor = s"$domain/actor",
+                `object` = newNote
+              )
 
-          // Save Note & Activity
-          // TODO: send to Activity Repository
-          // TODO: send to Note Repository
+              // Save Note & Activity
+              // TODO: send to Activity Repository
+              notesRegistry.ask(NotesRegistry.Add(newNote, _))
 
-          // POST to INBOX
-          // TODO: send to FollowersINBOX
-          complete(newNote)
+              // POST to INBOX
+              // TODO: send to FollowersINBOX
+              complete(
+                HttpResponse(
+                  status = StatusCodes.SeeOther,
+                  headers = Seq(
+                    akka.http.scaladsl.model.headers.Location(Uri(newNote.url))
+                  )
+                )
+              )
+            }
+          case _ => complete(HttpResponse(StatusCodes.Unauthorized))
+
         }
       }
     } ~ path("inbox") {

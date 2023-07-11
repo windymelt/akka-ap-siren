@@ -43,7 +43,15 @@ object App {
         context.spawn(ActorResolver(), "ActorResolverActor")
       context.watch(actorResolverActor)
 
-      val routes = new Routes(followersRegistryActor, actorResolverActor)(
+      val notesRepositoryActor =
+        context.spawn(NotesRegistry(), "NotesRegistryActor")
+      context.watch(notesRepositoryActor)
+
+      val routes = new Routes(
+        followersRegistryActor,
+        actorResolverActor,
+        notesRepositoryActor
+      )(
         context.system
       )
       startHttpServer(routes.userRoutes)(context.system)
