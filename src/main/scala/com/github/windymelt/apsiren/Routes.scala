@@ -329,7 +329,7 @@ class Routes(
                   val acceptActivity =
                     model.Accept(
                       id =
-                        "https://siren.capslock.dev/accept/12345", // TODO: FIXME
+                        s"https://siren.capslock.dev/accept/${UUID.generate().base64Stripped}",
                       actor = "https://siren.capslock.dev/actor",
                       `object` = json
                     )
