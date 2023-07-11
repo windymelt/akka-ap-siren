@@ -76,7 +76,52 @@ class Routes(
   )
 
   val userRoutes: Route =
-    route.Actor.route ~ path("inbox") {
+    route.Actor.route ~ path("post") {
+      // Post endpoint for local client.
+      post {
+        entity(as[model.LocalPost]) { post =>
+          // Acquire UUID
+          val newUuid = UUID.generate()
+
+          val published = DateTime.now()
+          // Transform LocalPost => Note
+          val newNote =
+            model.Note(
+              id = s"$domain/notes/${newUuid.base64Stripped}",
+              url = s"$domain/notes/${newUuid.base64Stripped}",
+              published = published,
+              to = Seq(
+                s"$domain/followers",
+                "https://www.w3.org/ns/activitystreams#Public"
+              ),
+              attributedTo = s"$domain/actor",
+              content = post.content
+            )
+
+          // Wrap Note by Activity
+          val activityUuid = UUID.generate()
+          val newActivity = model.Create(
+            id = s"$domain/activity/${activityUuid.base64Stripped}",
+            url = s"$domain/activity/${activityUuid.base64Stripped}",
+            published = published,
+            to = Seq(
+              s"$domain/followers",
+              "https://www.w3.org/ns/activitystreams#Public"
+            ),
+            actor = s"$domain/actor",
+            `object` = newNote
+          )
+
+          // Save Note & Activity
+          // TODO: send to Activity Repository
+          // TODO: send to Note Repository
+
+          // POST to INBOX
+          // TODO: send to FollowersINBOX
+          complete(newNote)
+        }
+      }
+    } ~ path("inbox") {
       get {
         logRequestResult(("inbox", Logging.InfoLevel)) {
           import io.circe.syntax._
