@@ -22,7 +22,7 @@ import scala.io.Source
 object HttpSignature {
   val signAlgo = SigningAlgorithm.RSA_SHA256
   val algo = Algorithm.RSA_SHA256
-  val keyId = "https://siren.capslock.dev/actor#main-key"
+  val keyId = "https://siren.capslock.dev/actor"
   val signature: Signature = new Signature(
     keyId,
     signAlgo,
@@ -91,8 +91,11 @@ object HttpSignature {
     }
     // map.put("Content-Type", mutableReq.entity.contentType.value)
     map.put("Host", mutableReq.uri.authority.host.address()) // TODO: fill port
+    // uriと書いてあるが嘘で、path+paramでよい
+    val pathAndQuery = mutableReq.uri.path
+      .toString() ++ mutableReq.uri.rawQueryString.getOrElse("")
     val signed =
-      signer.sign(mutableReq.method.value, mutableReq.uri.toString(), map)
+      signer.sign(mutableReq.method.value, pathAndQuery, map)
     val HttpHeader.ParsingResult.Ok(header, _) =
       HttpHeader.parse(
         "Signature",

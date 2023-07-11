@@ -17,8 +17,8 @@ case class Actor(
 case class ActorPublicKey(
     id: String,
     owner: String,
-    publicKeyPem: String
-    // private val `type`: String = "Key"
+    publicKeyPem: String,
+    private val `type`: Option["Key"] = Some("Key")
 )
 
 // JSON Encoder/Decoder
