@@ -5,7 +5,7 @@ package com.github.windymelt.apsiren.model
 case class Actor(
     id: String,
     name: Option[String] = None,
-    preferredUserName: Option[String],
+    preferredUsername: Option[String],
     summary: Option[String] = None,
     `type`: String,
     inbox: String,

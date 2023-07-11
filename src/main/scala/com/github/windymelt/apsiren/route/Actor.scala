@@ -18,7 +18,7 @@ object Actor {
           val actor = model.Actor(
             id = "https://siren.capslock.dev/actor",
             `type` = "Person",
-            preferredUserName = Some("siren"),
+            preferredUsername = Some("siren"),
             name = Some("田舎の昼のサイレンbot"),
             summary = Some(
               "<p>田舎の昼のサイレンbotをActivityPubでも実現しようというハイ・テックなこころみです。</p><p>元bot様とは何ら関係がありません。現在作りかけなので動作していません</p>"
