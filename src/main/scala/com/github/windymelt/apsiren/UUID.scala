@@ -10,6 +10,7 @@ case class UUID(private val inner: Array[Byte]) {
     val enc = Base64.getUrlEncoder()
     enc.encodeToString(inner)
   }
+  def bigIntRepresentation: BigInt = BigInt(inner)
   override def equals(sth: Any): Boolean = sth match {
     case UUID(arr) => inner.toSeq == arr.toSeq
     case _         => false
@@ -22,7 +23,7 @@ object UUID {
     // 今のところUUIDv4にしておくがそのうち良いやつにする
     val uuid = java.util.UUID.randomUUID()
 
-    val buffer = Array.ofDim[Byte](16)
+    var buffer = Array.ofDim[Byte](16)
     val bbuf = ByteBuffer.allocate(8) // 64 bits(long)
 
     // copy upper
@@ -32,6 +33,10 @@ object UUID {
     bbuf.clear()
     bbuf.putLong(uuid.getLeastSignificantBits())
     bbuf.array().copyToArray(buffer, 8)
+
+    // trick: we always treat MSB(sign bit) as 0 because it makes situation messy
+    val msbMask = 0x7f // 0b01111111
+    buffer(0) = (buffer(0) & msbMask).toByte
 
     UUID(buffer)
   }
@@ -43,6 +48,13 @@ object UUID {
       val dec = Base64.getUrlDecoder()
       val padded = (base64Stripped ++ "==").take(24)
       UUID(dec.decode(padded))
+    }
+  }
+
+  def fromBigIntRepresentation(bigInt: BigInt): Option[UUID] = {
+    import scala.util.control.Exception.allCatch
+    allCatch opt {
+      UUID(bigInt.toByteArray)
     }
   }
 }
