@@ -16,7 +16,7 @@ class UUIDSpec
     it("can generate UUID") {
       val id = UUID.generate().base64Stripped
       note(id)
-      id.length shouldBe 22
+      id should have size (22)
     }
 
     it("can convert into Base64 representation and back") {
