@@ -6,6 +6,7 @@ case class Actor(
     id: String,
     name: Option[String] = None,
     preferredUsername: Option[String],
+    url: Option[String],
     summary: Option[String] = None,
     `type`: String,
     inbox: String,

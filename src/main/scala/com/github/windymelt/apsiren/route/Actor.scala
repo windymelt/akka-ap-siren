@@ -17,6 +17,7 @@ object Actor {
 
           val actor = model.Actor(
             id = "https://siren.capslock.dev/actor",
+            url = Some("https://siren.capslock.dev/actor"),
             `type` = "Person",
             preferredUsername = Some("siren"),
             name = Some("田舎の昼のサイレンbot"),

@@ -344,6 +344,7 @@ class Routes(
                         akka.http.scaladsl.model.headers.Date(AkkaDateTime.now)
                       )
                     )
+                  system.log.info(s"Follow accepted: ${acceptActivity.id}")
                   system.log.info(s"target inbox: $followerInbox")
                   system.log.info("signing http request")
                   val signedRequest =
