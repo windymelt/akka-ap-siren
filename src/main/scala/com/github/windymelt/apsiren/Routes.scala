@@ -155,6 +155,7 @@ class Routes(
         }
       } ~ post {
         // follow/remove
+        // TODO: Validate HTTP Signature if user want it
         logRequestResult(("inbox-post", Logging.InfoLevel)) {
           mapRequest(http.common.activityAsJson) {
             entity(as[io.circe.Json]) { j =>
@@ -164,7 +165,8 @@ class Routes(
                   handleFollow(json = j)
                 case Right(Some("Undo")) =>
                   // TODO: Implement correctly
-                  complete("ok")
+                  system.log.info("inbox received Undo")
+                  handleUndo(json = j)
                 case typ =>
                   system.log.warn(s"unimplemented inbox post type: $typ")
                   reject // nop
@@ -379,4 +381,58 @@ class Routes(
       case _ => reject // nop
     }
   }
+  def handleUndo(json: io.circe.Json): StandardRoute = {
+    import akka.http.scaladsl
+    import akka.http.scaladsl.Http
+    implicit val ec = this.system.executionContext
+
+    json.hcursor.downField("object").get[String]("type") match {
+      case Right("Follow") =>
+        val followerToRemove = json.hcursor.get[String]("actor")
+        followerToRemove match {
+          case Right(soCalledActor) =>
+            complete {
+              // Actor existence check
+              this.actorResolverActor
+                .ask(ActorResolver.ResolveInbox(soCalledActor, _))
+                .map {
+                  case Right(followerInbox) =>
+                    unfollow(soCalledActor).foreach { _ =>
+                      val acceptActivity = model.Accept(
+                        s"$domain/accept/${UUID.generate().base64Stripped}",
+                        s"$domain/actor",
+                        json
+                      )
+                      val unsignedRequest = HttpRequest(
+                        method = scaladsl.model.HttpMethods.POST,
+                        uri = followerInbox.url,
+                        entity = http.common.activityRequest(acceptActivity),
+                        headers = Seq(
+                          scaladsl.model.headers
+                            .Accept(
+                              MediaRange(http.common.activityCT.mediaType)
+                            ),
+                          scaladsl.model.headers.Date(AkkaDateTime.now)
+                        )
+                      )
+                      system.log.info(
+                        s"Unfollow accepted: ${acceptActivity.id}"
+                      )
+                      val signedRequest =
+                        HttpSignature.sign(unsignedRequest)(system)
+                      Http().singleRequest(signedRequest)
+                    // make unfollow permanent
+                    }
+                    HttpResponse(StatusCodes.Accepted)
+                  case Left(_) => ???
+                }
+            }
+          case Left(_) => reject
+        }
+      case Right(_) => reject
+      case Left(_)  => reject
+    }
+  }
 }
+
+object Routes {}
