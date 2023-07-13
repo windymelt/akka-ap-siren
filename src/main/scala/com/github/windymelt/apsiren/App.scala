@@ -47,10 +47,14 @@ object App {
         context.spawn(NotesRegistry(), "NotesRegistryActor")
       context.watch(notesRepositoryActor)
 
+      val publisherActor = context.spawn(Publisher(), "PublisherActor")
+      context.watch(publisherActor)
+
       val routes = new Routes(
         followersRegistryActor,
         actorResolverActor,
-        notesRepositoryActor
+        notesRepositoryActor,
+        publisherActor
       )(
         context.system
       )

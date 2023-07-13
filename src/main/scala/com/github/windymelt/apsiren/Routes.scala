@@ -34,7 +34,8 @@ import scala.util.Success
 class Routes(
     followersRegistry: ActorRef[FollowersRegistry.Command],
     actorResolverActor: ActorRef[ActorResolver.Command],
-    notesRegistry: ActorRef[NotesRegistry.Command]
+    notesRegistry: ActorRef[NotesRegistry.Command],
+    publisherActor: ActorRef[Publisher.Command]
 )(implicit
     val system: ActorSystem[_]
 ) {
@@ -49,8 +50,8 @@ class Routes(
     system.settings.config.getDuration("sierrapub.routes.ask-timeout")
   )
 
-  def follow(url: String): Future[Ok.type] =
-    followersRegistry.ask(FollowersRegistry.Add(url, _))
+  def follow(url: String, inbox: String): Future[Ok.type] =
+    followersRegistry.ask(FollowersRegistry.Add(Follower(url, inbox), _))
   def unfollow(url: String): Future[Ok.type] =
     followersRegistry.ask(FollowersRegistry.Remove(url, _))
 
@@ -87,6 +88,7 @@ class Routes(
                 "sierrapub.post.bearer"
               ) =>
             entity(as[model.LocalPost]) { post =>
+              implicit val ec = this.system.executionContext
               // Acquire UUID
               val newUuid = UUID.generate()
 
@@ -124,7 +126,16 @@ class Routes(
               notesRegistry.ask(NotesRegistry.Add(newNote, _))
 
               // POST to INBOX
-              // TODO: send to FollowersINBOX
+              val followersFuture =
+                followersRegistry.ask(FollowersRegistry.GetAll(_))
+              followersFuture.foreach { followers =>
+                followers.followers.foreach { follower =>
+                  publisherActor ! Publisher.Publish(
+                    newActivity,
+                    follower.inbox
+                  )
+                }
+              }
               complete(
                 HttpResponse(
                   status = StatusCodes.SeeOther,
@@ -324,7 +335,7 @@ class Routes(
             .ask(ActorResolver.ResolveInbox(follower, _))
             .map {
               case Right(followerInbox) =>
-                follow(follower).map { _ =>
+                follow(follower, followerInbox.url).map { _ =>
                   import akka.http.scaladsl.Http
                   import akka.http.scaladsl.model.HttpRequest
                   // Follow list updated. We have to inform to inbox
