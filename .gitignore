@@ -6,3 +6,6 @@ target/
 .metals
 
 *.~undo-tree~
+
+server.key
+server.pub
