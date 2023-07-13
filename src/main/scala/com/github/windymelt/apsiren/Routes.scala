@@ -80,77 +80,11 @@ class Routes(
   )
 
   val userRoutes: Route =
-    route.Actor.route ~ path("post") {
-      // Post endpoint for local client.
-      post {
-        headerValueByName("Authorization") {
-          case s"Bearer $bearer"
-              if bearer == system.settings.config.getString(
-                "sierrapub.post.bearer"
-              ) =>
-            entity(as[model.LocalPost]) { post =>
-              implicit val ec = this.system.executionContext
-              // Acquire UUID
-              val newUuid = UUID.generate()
-
-              val published = DateTime.now()
-              // Transform LocalPost => Note
-              val newNote =
-                model.Note(
-                  id = s"$domain/notes/${newUuid.base64Stripped}",
-                  url = s"$domain/notes/${newUuid.base64Stripped}",
-                  published = published,
-                  to = Seq(
-                    s"$domain/followers",
-                    "https://www.w3.org/ns/activitystreams#Public"
-                  ),
-                  attributedTo = s"$domain/actor",
-                  content = post.content
-                )
-
-              // Wrap Note by Activity
-              val activityUuid = UUID.generate()
-              val newActivity = model.Create(
-                id = s"$domain/activity/${activityUuid.base64Stripped}",
-                url = s"$domain/activity/${activityUuid.base64Stripped}",
-                published = published,
-                to = Seq(
-                  s"$domain/followers",
-                  "https://www.w3.org/ns/activitystreams#Public"
-                ),
-                actor = s"$domain/actor",
-                `object` = newNote
-              )
-
-              // Save Note & Activity
-              // TODO: send to Activity Repository
-              notesRegistry.ask(NotesRegistry.Add(newNote, _))
-
-              // POST to INBOX
-              val followersFuture =
-                followersRegistry.ask(FollowersRegistry.GetAll(_))
-              followersFuture.foreach { followers =>
-                followers.followers.foreach { follower =>
-                  publisherActor ! Publisher.Publish(
-                    newActivity,
-                    follower.inbox
-                  )
-                }
-              }
-              complete(
-                HttpResponse(
-                  status = StatusCodes.SeeOther,
-                  headers = Seq(
-                    akka.http.scaladsl.model.headers.Location(Uri(newNote.url))
-                  )
-                )
-              )
-            }
-          case _ => complete(HttpResponse(StatusCodes.Unauthorized))
-
-        }
-      }
-    } ~ path("inbox") {
+    route.Actor.route ~ route.Post.route(
+      followersRegistry,
+      notesRegistry,
+      publisherActor
+    ) ~ path("inbox") {
       get {
         logRequestResult(("inbox", Logging.InfoLevel)) {
           import io.circe.syntax._
@@ -192,6 +126,8 @@ class Routes(
         logRequestResult(("outbox", Logging.InfoLevel)) {
           complete {
             import io.circe.syntax._
+
+            // TODO: Recover some recent activities
 
             val items = Seq(
               model.Create(
