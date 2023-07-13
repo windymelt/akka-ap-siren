@@ -20,6 +20,7 @@ lazy val root = (project in file(".")).settings(
   libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
     "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion, // for serialize
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
     "de.heikoseeberger" %% "akka-http-circe" % "1.39.2",
     "ch.qos.logback" % "logback-classic" % "1.2.11",
@@ -41,3 +42,13 @@ lazy val root = (project in file(".")).settings(
     "io.circe" %% "circe-parser"
   ).map(_ % circeVersion)
 )
+
+ThisBuild / assemblyMergeStrategy := {
+  case PathList("META-INF", "io.netty.versions.properties") =>
+    MergeStrategy.first
+  case PathList("META-INF", "CHANGELOG") =>
+    MergeStrategy.first
+  case x =>
+    val oldStrategy = (ThisBuild / assemblyMergeStrategy).value
+    oldStrategy(x)
+}
