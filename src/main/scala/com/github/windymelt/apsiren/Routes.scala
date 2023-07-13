@@ -19,6 +19,7 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.model.{DateTime => AkkaDateTime}
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.PathMatcher1
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.StandardRoute
 import akka.util.Timeout
@@ -227,6 +228,21 @@ class Routes(
             )
 
             HttpResponse(entity = http.common.activity(outbox))
+          }
+        }
+      }
+    } ~ pathPrefix("notes") {
+      path(Routes.MatchBase64StrippedUUID) { uuid =>
+        get {
+          implicit val ec = this.system.executionContext
+
+          complete {
+            val note = notesRegistry.ask(NotesRegistry.Get(uuid, _))
+            note.map {
+              case Some(note) =>
+                HttpResponse(entity = http.common.activity(note))
+              case None => HttpResponse(StatusCodes.NotFound)
+            }
           }
         }
       }
@@ -446,4 +462,9 @@ class Routes(
   }
 }
 
-object Routes {}
+object Routes {
+  val MatchBase64StrippedUUID: PathMatcher1[UUID] = RemainingPath.flatMap {
+    path =>
+      UUID.fromBase64Stripped(path.toString())
+  }
+}
