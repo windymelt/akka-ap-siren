@@ -27,6 +27,8 @@ lazy val root = (project in file(".")).settings(
     "com.github.nscala-time" %% "nscala-time" % "2.32.0",
     "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
     "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
+    // Persistence
+    "com.lightbend.akka" %% "akka-persistence-r2dbc" % "1.1.1",
     "org.scalatest" %% "scalatest" % "3.2.9" % Test,
     "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
     "org.scalatestplus" %% "scalacheck-1-17" % "3.2.16.0" % "test"
