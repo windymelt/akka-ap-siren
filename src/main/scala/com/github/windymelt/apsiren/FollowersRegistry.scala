@@ -48,12 +48,17 @@ object FollowersRegistry {
   private val commandHandler
       : (Set[Follower], Command) => Effect[Event, Set[Follower]] = {
     case (s: Set[Follower], Add(follower, replyTo)) =>
-      replyTo ! Ok
-      Effect.persist(Added(follower))
+      s.contains(follower) match {
+        case true => // already registered on shared inbox?
+          Effect.unhandled.thenRun(_ => replyTo ! Ok)
+        case false =>
+          Effect.persist(Added(follower)).thenRun(_ => replyTo ! Ok)
+      }
 
     case (s: Set[Follower], Remove(follower, replyTo)) =>
       s.exists(_.url == follower) match {
         case true =>
+          // FIX: if we use shared inbox, shared user's remove makes messy
           Effect.persist(Removed(follower)).thenRun(_ => replyTo ! Ok)
         case false =>
           Effect.unhandled.thenRun(_ => replyTo ! Ok)
