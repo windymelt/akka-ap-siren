@@ -387,7 +387,9 @@ class Routes(
                     // make unfollow permanent
                     }
                     HttpResponse(StatusCodes.Accepted)
-                  case Left(_) => ???
+                  case Left(e) =>
+                    system.log.info(s"Actor resolve failed: $e")
+                    HttpResponse(StatusCodes.InternalServerError, entity = e)
                 }
             }
           case Left(_) => reject
