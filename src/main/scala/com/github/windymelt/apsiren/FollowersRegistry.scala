@@ -23,6 +23,7 @@ object FollowersRegistry {
       extends Command
 
   final case class GetAll(replyTo: ActorRef[Followers]) extends Command
+  final case class GetCount(replyTo: ActorRef[Int]) extends Command
 
   final case object Ok
   // いずれインスタンスごとに効率的な配送ができるような構造にする
@@ -66,6 +67,9 @@ object FollowersRegistry {
 
     case (s: Set[Follower], GetAll(replyTo)) =>
       Effect.none.thenRun(_ => replyTo ! Followers(s))
+
+    case (s: Set[Follower], GetCount(replyTo)) =>
+      Effect.none.thenRun(s => replyTo ! s.size)
   }
 
   // Handles Event. Events are persistent and permanent.
