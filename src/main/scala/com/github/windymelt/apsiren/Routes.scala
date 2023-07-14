@@ -84,7 +84,7 @@ class Routes(
       followersRegistry,
       notesRegistry,
       publisherActor
-    ) ~ path("inbox") {
+    ) ~ route.Internal.route(followersRegistry) ~ path("inbox") {
       get {
         logRequestResult(("inbox", Logging.InfoLevel)) {
           import io.circe.syntax._
