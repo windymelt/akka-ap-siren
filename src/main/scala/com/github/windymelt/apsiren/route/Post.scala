@@ -76,11 +76,12 @@ object Post {
               val followersFuture =
                 followersRegistry.ask(FollowersRegistry.GetAll(_))
               followersFuture.foreach { followers =>
-                followers.followers.foreach { follower =>
-                  publisherActor ! Publisher.Publish(
-                    newActivity,
-                    follower.inbox
-                  )
+                // de-dup inbox.
+                // Some instance has own shared inbox.
+                // We don't have to send all of users that sharing same inbox.
+                val inboxes = followers.followers.map(_.inbox).toSet
+                inboxes.foreach { inbox =>
+                  publisherActor ! Publisher.Publish(newActivity, inbox)
                 }
               }
               complete(
