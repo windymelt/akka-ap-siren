@@ -6,6 +6,9 @@ import akka.http.scaladsl.model.HttpCharsets
 import akka.http.scaladsl.model.HttpEntity
 import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.MediaType
+import akka.http.scaladsl.server.directives.Credentials
+import akka.http.scaladsl.server.directives.Credentials.Missing
+import akka.http.scaladsl.server.directives.Credentials.Provided
 
 package object common {
   val activityCT = ContentType.WithFixedCharset(
@@ -35,4 +38,18 @@ package object common {
   def activityAsJson(req: HttpRequest): HttpRequest = {
     req.withEntity(req.entity.withContentType(ContentTypes.`application/json`))
   }
+
+  /** Authenticator for authenticateOAuth2 directive.
+    *
+    * @param expectedToken
+    *   Bearer token expected.
+    * @param c
+    *   (internally used)
+    * @return
+    */
+  def checkBearerToken(expectedToken: String)(c: Credentials): Option[Unit] =
+    c match {
+      case Missing              => None
+      case Provided(identifier) => Option.when(identifier == expectedToken)(())
+    }
 }
