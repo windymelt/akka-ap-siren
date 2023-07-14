@@ -25,7 +25,7 @@ object Actor {
             preferredUsername = Some("siren"),
             name = Some("田舎の昼のサイレンbot"),
             summary = Some(
-              "<p>田舎の昼のサイレンbotをActivityPubでも実現しようというハイ・テックなこころみです。</p><p>元bot様とは何ら関係がありません。現在作りかけなので動作していません</p>"
+              "<p>田舎の昼のサイレンbotをActivityPubでも実現しようというハイ・テックなこころみです。</p><p>元bot様とは何ら関係がありません。現在作りかけなので動作がヘンなところがあるかもしれません。</p><p>不具合やお問い合わせは @windymelt@plrm.capslock.dev にどうぞ。</p>"
             ),
             inbox = "https://siren.capslock.dev/inbox",
             // Use inbox as sharedInbox because only one actor is active
