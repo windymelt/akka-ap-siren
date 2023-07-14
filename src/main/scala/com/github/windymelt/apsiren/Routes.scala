@@ -243,6 +243,19 @@ class Routes(
               }
             }
           }
+        },
+        path("nodeinfo") {
+          import io.circe.generic.auto._
+          complete(
+            model.NodeInfoTop(
+              Seq(
+                model.NodeInfoTop.Link(
+                  "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                  "https://siren.capslock.dev/nodeinfo/2.1"
+                )
+              )
+            )
+          )
         }
 //         path("host-meta") {
 //           logRequestResult(("host-meta", Logging.InfoLevel)) {
