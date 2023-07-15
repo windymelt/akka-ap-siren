@@ -10,7 +10,51 @@ import scala.util.Success
 
 //#main-class
 object App {
-  // #start-http-server
+  def main(args: Array[String]): Unit = {
+    // #server-bootstrapping
+    val rootBehavior = Behaviors.setup[Nothing] { context =>
+      val followersRepository =
+        context.spawn(
+          impl.FollowersComponent.followersBehavior,
+          "UserRegistryActor"
+        )
+      context.watch(followersRepository)
+
+      val actorResolverActor =
+        context.spawn(
+          impl.ActorResolverComponent.actorResolverBehavior,
+          "ActorResolverActor"
+        )
+      context.watch(actorResolverActor)
+
+      val notesRepositoryActor =
+        context.spawn(impl.NotesComponent.notesBehavior, "NotesRegistryActor")
+      context.watch(notesRepositoryActor)
+
+      val publisherActor =
+        context.spawn(
+          impl.PublisherComponent.publisherBehavior,
+          "PublisherActor"
+        )
+      context.watch(publisherActor)
+
+      val appliation = new Application(
+        actorResolverActor = actorResolverActor,
+        followersRepository = followersRepository,
+        notesRepository = notesRepositoryActor,
+        publisherActor = publisherActor
+      )(context.system)
+
+      context.system.log.warn("starting http server...")
+
+      startHttpServer(appliation.routes)(context.system)
+
+      Behaviors.empty
+    }
+    val system = ActorSystem[Nothing](rootBehavior, "SierraPub")
+    // #server-bootstrapping
+  }
+
   private def startHttpServer(
       routes: Route
   )(implicit system: ActorSystem[_]): Unit = {
@@ -31,39 +75,6 @@ object App {
         system.terminate()
     }
   }
-  // #start-http-server
-  def main(args: Array[String]): Unit = {
-    // #server-bootstrapping
-    val rootBehavior = Behaviors.setup[Nothing] { context =>
-      val followersRegistryActor =
-        context.spawn(FollowersRegistry(), "UserRegistryActor")
-      context.watch(followersRegistryActor)
 
-      val actorResolverActor =
-        context.spawn(ActorResolver(), "ActorResolverActor")
-      context.watch(actorResolverActor)
-
-      val notesRepositoryActor =
-        context.spawn(NotesRegistry(), "NotesRegistryActor")
-      context.watch(notesRepositoryActor)
-
-      val publisherActor = context.spawn(Publisher(), "PublisherActor")
-      context.watch(publisherActor)
-
-      val routes = new Routes(
-        followersRegistryActor,
-        actorResolverActor,
-        notesRepositoryActor,
-        publisherActor
-      )(
-        context.system
-      )
-      startHttpServer(routes.userRoutes)(context.system)
-
-      Behaviors.empty
-    }
-    val system = ActorSystem[Nothing](rootBehavior, "SierraPub")
-    // #server-bootstrapping
-  }
 }
 //#main-class
