@@ -7,12 +7,13 @@ import akka.actor.typed.scaladsl.AskPattern._
 import akka.util.Timeout
 import akka.http.scaladsl.model.HttpResponse
 import akka.http.scaladsl.model.StatusCodes
+import Util.MatchBase64StrippedUUID
 
 trait NotesComponent {
   self: ActorSystemComponent with repo.NotesComponent =>
 
   val notesRoute: Route = pathPrefix("notes") {
-    path(Routes.MatchBase64StrippedUUID) { uuid =>
+    path(MatchBase64StrippedUUID) { uuid =>
       get {
         implicit val ec = system.executionContext
 
