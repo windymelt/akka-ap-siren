@@ -11,6 +11,7 @@ object NotesRegistry {
       extends Command
   final case class Get(id: UUID, replyTo: ActorRef[Option[model.Note]])
       extends Command
+  final case class GetRecent(replyTo: ActorRef[Seq[model.Note]]) extends Command
 
   final case object Ok
 
@@ -32,6 +33,12 @@ object NotesRegistry {
         if (got.isDefined) {
           ctx.log.info(s"Retrieving note: ${got.get.url}")
         }
+        Behaviors.same
+      case ctx -> GetRecent(replyTo) =>
+        // TODO: Use Query-side system.
+        // TODO: Multi-actor separation.
+        val recent = map.values.toSeq.sortBy(_.published.getMillis().unary_-)
+        replyTo ! recent.take(10)
         Behaviors.same
     }
 }

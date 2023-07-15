@@ -124,46 +124,34 @@ class Routes(
     } ~ path("outbox") {
       get {
         logRequestResult(("outbox", Logging.InfoLevel)) {
-          complete {
-            import io.circe.syntax._
+          onSuccess(notesRegistry.ask(NotesRegistry.GetRecent(_))) { notes =>
+            complete {
+              import io.circe.syntax._
 
-            // TODO: Recover some recent activities
+              // TODO: Save activity to correctly recover
+              val activities = notes.map { n =>
+                val uuid = UUID.generate().base64Stripped
+                model.Create(
+                  id = s"$domain/activities/$uuid",
+                  url = s"$domain/activities/$uuid",
+                  published = n.published,
+                  to = Seq(
+                    "https://siren.capslock.dev/followers",
+                    "https://www.w3.org/ns/activitystreams#Public"
+                  ),
+                  actor = n.attributedTo,
+                  `object` = n
+                )
+              }
 
-            val items = Seq(
-              model.Create(
-                id =
-                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
-                url =
-                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd2.create.json",
-                published = DateTime.parse("2023-07-08T09:17:00Z"),
-                to = Seq(
-                  "https://siren.capslock.dev/followers",
-                  "https://www.w3.org/ns/activitystreams#Public"
-                ),
-                actor = "https://siren.capslock.dev/actor",
-                `object` = note2
-              ),
-              model.Create(
-                id =
-                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
-                url =
-                  "https://siren.capslock.dev/post/activities/act-yyyy-mm-dd.create.json",
-                published = DateTime.parse("2023-01-16T06:48:29Z"),
-                to = Seq(
-                  "https://siren.capslock.dev/followers",
-                  "https://www.w3.org/ns/activitystreams#Public"
-                ),
-                actor = "https://siren.capslock.dev/actor",
-                `object` = note
+              val outbox = model.Outbox(
+                summary = "outbox of siren",
+                totalItems = activities.size,
+                orderedItems = activities
               )
-            )
-            val outbox = model.Outbox(
-              summary = "outbox of siren",
-              totalItems = 2,
-              orderedItems = items
-            )
 
-            HttpResponse(entity = http.common.activity(outbox))
+              HttpResponse(entity = http.common.activity(outbox))
+            }
           }
         }
       }
