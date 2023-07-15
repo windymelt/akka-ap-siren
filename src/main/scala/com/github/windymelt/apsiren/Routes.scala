@@ -56,29 +56,6 @@ class Routes(
   def unfollow(url: String): Future[Ok.type] =
     followersRegistry.ask(FollowersRegistry.Remove(url, _))
 
-  val note = model.Note(
-    id = "https://siren.capslock.dev/items/20230116-064829.note.json",
-    url = "https://siren.capslock.dev/items/20230116-064829.note.json",
-    published = DateTime.parse("2023-01-16T06:48:29Z"),
-    to = Seq(
-      "https://siren.capslock.dev/followers",
-      "https://www.w3.org/ns/activitystreams#Public"
-    ),
-    attributedTo = "https://siren.capslock.dev/actor",
-    content = "ウゥーーーーーーーーーー"
-  )
-  val note2 = model.Note(
-    id = "https://siren.capslock.dev/items/20230708.note.json",
-    url = "https://siren.capslock.dev/items/20230708.note.json",
-    published = DateTime.parse("2023-07-08T09:17:00Z"),
-    to = Seq(
-      "https://siren.capslock.dev/followers",
-      "https://www.w3.org/ns/activitystreams#Public"
-    ),
-    attributedTo = "https://siren.capslock.dev/actor",
-    content = "リファクタしました"
-  )
-
   val userRoutes: Route =
     route.Actor.route ~ route.Post.route(
       followersRegistry,
@@ -170,27 +147,6 @@ class Routes(
           }
         }
       }
-    } ~ pathPrefix("items") {
-      concat(
-        path("20230116-064829.note.json") {
-          get {
-            logRequestResult(("item", Logging.InfoLevel)) {
-              complete {
-                HttpResponse(entity = http.common.activity(note))
-              }
-            }
-          }
-        },
-        path("20230708.note.json") {
-          get {
-            logRequestResult(("item", Logging.InfoLevel)) {
-              complete {
-                HttpResponse(entity = http.common.activity(note2))
-              }
-            }
-          }
-        }
-      )
     } ~ pathPrefix(".well-known") {
       concat(
         path("webfinger") {
