@@ -21,10 +21,6 @@ class Application(
     with repo.FollowersComponent
     with repo.NotesComponent
     with repo.PublisherComponent
-    // with impl.ActorResolverComponent
-    // with impl.FollowersComponent
-    // with impl.NotesComponent
-    // with impl.PublisherComponent
     with route.ActorComponent
     with route.PostComponent
     with route.InternalComponent
