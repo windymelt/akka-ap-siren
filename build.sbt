@@ -32,6 +32,8 @@ lazy val root = (project in file(".")).settings(
     "com.lightbend.akka" %% "akka-persistence-r2dbc" % "1.1.1",
     "com.typesafe.akka" %% "akka-persistence-typed" % akkaVersion,
     "com.typesafe.akka" %% "akka-persistence-testkit" % akkaVersion % Test,
+    // Trivial note renderer
+    "org.scalatra.scalate" %% "scalate-core" % "1.9.8",
     "org.scalatest" %% "scalatest" % "3.2.9" % Test,
     "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
     "org.scalatestplus" %% "scalacheck-1-17" % "3.2.16.0" % "test"

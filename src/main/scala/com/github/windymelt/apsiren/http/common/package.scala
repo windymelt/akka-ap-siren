@@ -1,14 +1,20 @@
 package com.github.windymelt.apsiren.http
 
-import akka.http.scaladsl.model.ContentType
-import akka.http.scaladsl.model.ContentTypes
-import akka.http.scaladsl.model.HttpCharsets
-import akka.http.scaladsl.model.HttpEntity
-import akka.http.scaladsl.model.HttpRequest
-import akka.http.scaladsl.model.MediaType
-import akka.http.scaladsl.server.directives.Credentials
-import akka.http.scaladsl.server.directives.Credentials.Missing
-import akka.http.scaladsl.server.directives.Credentials.Provided
+import akka.http.scaladsl.model
+import akka.http.scaladsl.server
+
+import model.ContentType
+import model.ContentTypes
+import model.HttpCharsets
+import model.HttpEntity
+import model.HttpRequest
+import model.MediaType
+import model.headers.Accept
+import server.directives._
+import server.directives.Credentials.Missing
+import server.directives.Credentials.Provided
+import server.Directive1
+import server.Directives._
 
 package object common {
   val activityCT = ContentType.WithFixedCharset(
@@ -51,5 +57,16 @@ package object common {
     c match {
       case Missing              => None
       case Provided(identifier) => Option.when(identifier == expectedToken)(())
+    }
+
+  /** Match when Accept header accepts provided mediaType. Thank you, ChatGPT!
+    *
+    * @param mediaType
+    * @return
+    */
+  def accept(mediaType: MediaType): Directive1[Accept] =
+    headerValueByType[Accept](()).flatMap { accept =>
+      if (accept.mediaRanges.exists(_.matches(mediaType))) provide(accept)
+      else reject
     }
 }

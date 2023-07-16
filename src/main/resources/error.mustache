@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <style>
+         .bg {
+             position: absolute;
+             top:0; left:0;
+             width: 100%; height: 100%;
+
+             color: #ebdbb2;
+             line-height: 161%;
+
+             text-align: center;
+         }
+
+         .inner {
+             max-width: 80em;
+             margin-left: 25%;
+             margin-right: 25%;
+             margin-top: 30%;
+         }
+
+         .error-code {
+             font-size: 30em;
+             font-weight: bold;
+         }
+
+         #canvas {
+             width: 100%;
+             height: 100%;
+             padding: 0;
+             margin: 0;
+             border: 0;
+             top: 0;
+             left: 0;
+         }
+        </style>
+    </head>
+    <body style="text-align: center; margin: 0;">
+        <canvas id="canvas"></canvas>
+        <main class="bg">
+            <div class="inner" style="padding-bottom: 10vh;">
+                <code class="error-code">{{code}}</code>&nbsp;
+                <hr style="border-width: 2px; border-style: solid;" />
+                <div>{{message}}</div>
+            </div>
+        </main>
+        <script>
+         /*
+            Copyright (c) 2023 by Eric Lathrop (https://codepen.io/ericlathrop/pen/XgWWjK)
+
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+            The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+          */
+         var canvas = document.getElementById("canvas");
+         var ctx = canvas.getContext("2d");
+         ctx.fillStyle = "#282828";
+
+         canvas.width = document.body.clientWidth;
+         canvas.height = document.body.clientHeight;
+
+         ctx.fillRect(0, 0, canvas.width, canvas.height);
+         ctx.fillStyle = "#3c3836";
+
+         var scale = 8;
+         var width = Math.floor(canvas.width / scale);
+         var height = Math.floor(canvas.height / scale);
+
+         var row = [];
+         for (var x = 0; x < width; x++) {
+             row.push(Math.random() > 0.8);
+         }
+         row[Math.round(width / 2)] = true;
+
+         function next(rowA) {
+             var rule = {{code}};
+             var rowB = rowA.slice();
+             for (var x = 0; x < rowA.length; x++) {
+                 var l = rowA[x - 1] ? 1 : 0;
+                 var c = rowA[x]     ? 1 : 0;
+                 var r = rowA[x + 1] ? 1 : 0;
+                 var code = (l << 2) | (c << 1) | r;
+                 rowB[x] = ((rule >> code) & 1) == true;
+             }
+             return rowB;
+         }
+
+         function drawRow(row, y) {
+             for (var x = 0; x < row.length; x++) {
+                 if (row[x] === true) {
+                     ctx.fillRect(x * scale, y * scale, scale, scale);
+                 }
+             }
+         }
+
+         drawRow(row, 0);
+         function go(count) {
+             if(count > height) {return}
+             row = next(row)
+             drawRow(row, count)
+             window.setTimeout(function () {go(count + 1)}, 10)
+         }
+
+         go(1);
+        </script>
+    </body>
+</html>

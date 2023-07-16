@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+         .bg {
+            background: linear-gradient(352deg, #282828, #1d2021, #3c3836);
+            background-size: 600% 600%;
+
+            -webkit-animation: AnimationName 30s ease infinite;
+            -moz-animation: AnimationName 30s ease infinite;
+            animation: AnimationName 30s ease infinite;
+
+             color: #ebdbb2;
+             max-width: 80em;
+             margin-left: 25%;
+             margin-right: 25%;
+             margin-top: 30%;
+             line-height: 161%;
+         }
+
+         .article {
+             padding-bottom: 10vh;
+         }
+
+        @-webkit-keyframes AnimationName {
+            0%{background-position:37% 0%}
+            50%{background-position:64% 100%}
+            100%{background-position:37% 0%}
+        }
+        @-moz-keyframes AnimationName {
+            0%{background-position:37% 0%}
+            50%{background-position:64% 100%}
+            100%{background-position:37% 0%}
+        }
+        @keyframes AnimationName {
+            0%{background-position:37% 0%}
+            50%{background-position:64% 100%}
+            100%{background-position:37% 0%}
+        }
+        </style>
+    </head>
+    <body class="bg">
+        <article class="article">{{body}}</article>
+        <hr style="border-width: 2px; border-style: solid;" />
+        <span>Created: <a href="{{permalink}}" style="color: #83a598;"><time datetime="{{created}}">{{created}}</time></a></span>
+        <address>By: {{by}}</address>
+    </body>
+</html>
