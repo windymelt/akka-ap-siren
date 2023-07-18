@@ -61,7 +61,11 @@ object App {
     // Akka HTTP still needs a classic ActorSystem to start
     import system.executionContext
 
-    val futureBinding = Http().newServerAt("0.0.0.0", 8080).bind(routes)
+    val host =
+      system.settings.config.getString("sierrapub.server.listen.host")
+    val port =
+      system.settings.config.getInt("sierrapub.server.listen.port")
+    val futureBinding = Http().newServerAt(host, port).bind(routes)
     futureBinding.onComplete {
       case Success(binding) =>
         val address = binding.localAddress
