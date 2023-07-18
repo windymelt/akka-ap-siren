@@ -42,6 +42,12 @@ trait ActorComponent {
         }
       }
     }
+  } ~ pathPrefix("users") {
+    path(Util.MatchBase64StrippedUUID) { uuid =>
+      get {
+        complete("user A/P page")
+      }
+    }
   }
 
   val lf = """
