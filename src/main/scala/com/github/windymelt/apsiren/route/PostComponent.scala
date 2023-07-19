@@ -78,7 +78,10 @@ trait PostComponent {
             // TODO: send to Activity Repository
             notesRepository.ask(ref => protocol.Notes.Add(newNote, ref))
 
-            // POST to INBOX
+            // POST to INBOX.
+            // Though Note is permanent, Activity is ephemeral.
+            // Publishing to INBOX occur when Activity created.
+            // Resurrecting Notes doesn't trigger publishing.
             val followersFuture =
               followersRepository.ask(ref => protocol.Followers.GetAll(ref))
             followersFuture.foreach { followers =>
