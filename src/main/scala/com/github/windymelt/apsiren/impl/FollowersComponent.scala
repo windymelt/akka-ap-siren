@@ -2,14 +2,20 @@ package com.github.windymelt.apsiren
 package impl
 
 import akka.actor.typed.Behavior
+import akka.actor.typed.scaladsl.Behaviors
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.Effect
+import akka.actor.typed.SupervisorStrategy
 import akka.persistence.typed.scaladsl.EventSourcedBehavior
-
 import protocol.Followers._
 
 object FollowersComponent {
-  def followersBehavior(): Behavior[Command] = registry(Set.empty)
+  def followersBehavior(): Behavior[Command] =
+    Behaviors
+      .supervise(registry(Set.empty))
+      .onFailure(
+        SupervisorStrategy.restart
+      ) // Always restart (replay) on failure
 
   private def registry(users: Set[Follower]): Behavior[Command] =
     EventSourcedBehavior[Command, Event, Set[Follower]](
