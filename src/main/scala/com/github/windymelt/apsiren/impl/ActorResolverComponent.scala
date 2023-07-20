@@ -1,14 +1,6 @@
 package com.github.windymelt.apsiren
 package impl
 
-import akka.actor.typed.ActorRef
-import akka.actor.typed.Behavior
-import akka.actor.typed.scaladsl.Behaviors
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.HttpEntity
-import akka.http.scaladsl.model.HttpRequest
-import akka.http.scaladsl.model.MediaRange
-import akka.http.scaladsl.model.headers
 import com.github.windymelt.apsiren.model.Actor
 import io.circe._
 import io.circe.parser._
@@ -18,10 +10,26 @@ import scala.concurrent.duration.FiniteDuration
 import scala.util.Failure
 import scala.util.Success
 
+import akka.actor.typed.ActorRef
+import akka.actor.typed.Behavior
+import akka.actor.typed.SupervisorStrategy
+import akka.actor.typed.scaladsl.Behaviors
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.model.HttpEntity
+import akka.http.scaladsl.model.HttpRequest
+import akka.http.scaladsl.model.MediaRange
+import akka.http.scaladsl.model.headers
 import protocol.ActorResolver._
 
 object ActorResolverComponent {
   def actorResolverBehavior(): Behavior[protocol.ActorResolver.Command] =
+    Behaviors
+      .supervise(coreBehavior)
+      .onFailure(
+        SupervisorStrategy.restart
+      ) // Always restart because this actor has no state
+
+  private def coreBehavior: Behavior[protocol.ActorResolver.Command] =
     Behaviors.receive { // using .receive to use system and ec
       // Resolving inbox for specific actor.
       // We GET to actor URL and get inbox field on it.
