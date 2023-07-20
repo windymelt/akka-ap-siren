@@ -2,12 +2,14 @@ package com.github.windymelt.apsiren
 package impl
 
 import akka.actor.typed.Behavior
+import akka.actor.typed.SupervisorStrategy
 import akka.actor.typed.scaladsl.Behaviors
-
 import protocol.Notes._
 
 object NotesComponent {
-  def notesBehavior: Behavior[Command] = registry(Map.empty)
+  def notesBehavior: Behavior[Command] = Behaviors
+    .supervise(registry(Map.empty))
+    .onFailure(SupervisorStrategy.restart)
 
   private def registry(map: Map[UUID, model.Note]): Behavior[Command] =
     Behaviors.receive {
