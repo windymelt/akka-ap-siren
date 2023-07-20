@@ -26,4 +26,6 @@ object Create {
       j.deepMerge(common.activityStreamsHeader)
         .deepMerge(common.typeHeader("Create"))
   }
+
+  implicit val CreateDecoder: Decoder[Create] = deriveDecoder
 }

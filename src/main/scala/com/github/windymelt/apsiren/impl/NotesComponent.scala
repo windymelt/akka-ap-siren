@@ -32,7 +32,7 @@ object NotesComponent {
         // TODO: Use Query-side system.
         // TODO: Multi-actor separation.
         val recent = map.values.toSeq.sortBy(_.published.getMillis().unary_-)
-        replyTo ! recent.take(10)
+        replyTo ! Notes(recent.take(10))
         Behaviors.same
     }
 }

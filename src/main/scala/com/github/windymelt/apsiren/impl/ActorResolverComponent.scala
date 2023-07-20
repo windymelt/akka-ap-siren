@@ -60,9 +60,11 @@ object ActorResolverComponent {
                     // now we have INBOX.
                     // Prefer shared INBOX
                     val inbox = Inbox(a.sharedInbox.getOrElse(a.inbox))
-                    replyTo ! Right(inbox)
+                    replyTo ! ActorResolveResult(Right(inbox))
                   case Left(e) =>
-                    replyTo ! Left(e.toString) // JSON decoding failure
+                    replyTo ! ActorResolveResult(
+                      Left(e.toString)
+                    ) // JSON decoding failure
                 }
               }
             case Failure(e) => ctx.log.warn(e.toString())

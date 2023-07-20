@@ -18,6 +18,7 @@ import scala.util.Failure
 import scala.concurrent.duration.FiniteDuration
 import akka.http.scaladsl.model.HttpEntity
 import akka.http.scaladsl.model.{DateTime => AkkaDateTime}
+import protocol.ActorResolver.ActorResolveResult
 
 trait InboxComponent {
   self: ActorSystemComponent
@@ -93,7 +94,7 @@ trait InboxComponent {
           this.actorResolverActor
             .ask(protocol.ActorResolver.ResolveInbox(follower, _))
             .map {
-              case Right(followerInbox) =>
+              case ActorResolveResult(Right(followerInbox)) =>
                 follow(follower, followerInbox.url).map { _ =>
                   import akka.http.scaladsl.Http
                   import akka.http.scaladsl.model.HttpRequest
@@ -143,7 +144,7 @@ trait InboxComponent {
                   status = StatusCodes.Accepted,
                   entity = HttpEntity.Empty
                 )
-              case Left(e) =>
+              case ActorResolveResult(Left(e)) =>
                 system.log.warn(s"failed to resolve inbox: $e")
                 HttpResponse(status = StatusCodes.InternalServerError)
             }
@@ -166,7 +167,7 @@ trait InboxComponent {
               actorResolverActor
                 .ask(protocol.ActorResolver.ResolveInbox(soCalledActor, _))
                 .map {
-                  case Right(followerInbox) =>
+                  case ActorResolveResult(Right(followerInbox)) =>
                     unfollow(soCalledActor).foreach { _ =>
                       val acceptActivity = model.Accept(
                         s"$domain/accept/${UUID.generate().base64Stripped}",
@@ -194,7 +195,7 @@ trait InboxComponent {
                     // make unfollow permanent
                     }
                     HttpResponse(StatusCodes.Accepted)
-                  case Left(e) =>
+                  case ActorResolveResult(Left(e)) =>
                     system.log.info(s"Actor resolve failed: $e")
                     HttpResponse(StatusCodes.InternalServerError, entity = e)
                 }

@@ -8,7 +8,7 @@ object Followers {
       url: String,
       inbox: String /* TODO: fill fields later */
   )
-  sealed trait Command
+  sealed trait Command extends CirceAkkaSerializable
 
   final case class Add(user: Follower, replyTo: ActorRef[Ok.type])
       extends Command
@@ -19,12 +19,13 @@ object Followers {
   final case class GetAll(replyTo: ActorRef[Followers]) extends Command
   final case class GetCount(replyTo: ActorRef[Int]) extends Command
 
-  final case object Ok
+  sealed trait Result extends CirceAkkaSerializable
+  final case object Ok extends Result
   // いずれインスタンスごとに効率的な配送ができるような構造にする
-  final case class Followers(followers: Iterable[Follower])
+  final case class Followers(followers: Iterable[Follower]) extends Result
 
   // actor event(to be persisted)
-  sealed trait Event
+  sealed trait Event extends CirceAkkaSerializable
   final case class Added(user: Follower) extends Event
   final case class Removed(user: String) extends Event
 }
