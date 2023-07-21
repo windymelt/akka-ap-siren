@@ -7,6 +7,7 @@ import io.circe.HCursor
 import io.circe.Json
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormatter
+import io.circe.DecodingFailure
 
 object DateTime {
   import org.joda.time.DateTime
@@ -20,8 +21,18 @@ object DateTime {
   }
 
   implicit val decodeDateTime: Decoder[DateTime] = new Decoder[DateTime] {
+    import scala.util.control.Exception.allCatch
     final def apply(s: HCursor): Decoder.Result[DateTime] = {
-      ??? // 今回はデコードは使わないので省略
+      val str = s.focus.flatMap(_.asString)
+      str match {
+        case None => Left(DecodingFailure("Not a string", s.history))
+        case Some(value) =>
+          val parsing = allCatch opt(org.joda.time.DateTime.parse(value))
+          parsing match {
+            case None => Left(DecodingFailure(s"Could not decode `${value}` as DateTime", s.history))
+            case Some(value) => Right(value)
+          }
+      }
     }
   }
 }

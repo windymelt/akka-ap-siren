@@ -21,6 +21,7 @@ class CirceSerializer(actorSystem: ExtendedActorSystem)
       Register[ActorResolver.Command],
       Register[ActorResolver.Result],
       Register[Notes.Command],
+      Register[Notes.Event],
       Register[Notes.Result],
       Register[Publisher.Command]
     )

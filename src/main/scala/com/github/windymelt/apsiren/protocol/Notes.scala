@@ -11,6 +11,9 @@ object Notes {
       extends Command
   final case class GetRecent(replyTo: ActorRef[Notes]) extends Command
 
+  sealed trait Event extends CirceAkkaSerializable
+  final case class Added(note: model.Note) extends Event
+
   sealed trait Result extends CirceAkkaSerializable
   final case object Ok extends Result
   final case class Notes(notes: Seq[model.Note]) extends Result
