@@ -12,11 +12,12 @@ import io.circe.DecodingFailure
 object DateTime {
   import org.joda.time.DateTime
   val JST = +9
+  val JstZone = DateTimeZone.forOffsetHours(JST)
 
   implicit val encodeDateTime: Encoder[DateTime] = new Encoder[DateTime] {
     final def apply(dt: DateTime): Json =
       Json.fromString(
-        dt.withZone(DateTimeZone.forOffsetHours(JST)).toString
+        dt.withZone(JstZone).toString
       )
   }
 
@@ -30,7 +31,7 @@ object DateTime {
           val parsing = allCatch opt(org.joda.time.DateTime.parse(value))
           parsing match {
             case None => Left(DecodingFailure(s"Could not decode `${value}` as DateTime", s.history))
-            case Some(value) => Right(value)
+            case Some(value) => Right(value.withZone(JstZone))
           }
       }
     }
